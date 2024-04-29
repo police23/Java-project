@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  *
  * @author User
  */
-public class SuaSach extends javax.swing.JFrame {
+public class CNhatSach extends javax.swing.JFrame {
     BookBUS BookBUS;
     Book bk;
     JDBCConnection cn = new JDBCConnection();
@@ -28,7 +28,7 @@ public class SuaSach extends javax.swing.JFrame {
     /**
      * Creates new form UpdateBook
      */
-    public SuaSach(Book bk, QLSach qls) {
+    public CNhatSach(Book bk, QLSach qls) {
         initComponents();
         LoadTheLoai();
         LoadNhaXB();
@@ -39,7 +39,7 @@ public class SuaSach extends javax.swing.JFrame {
         txtTacGia.setText(bk.getTacGia());
         ComboBox_TheLoai.setSelectedItem(bk.getTheLoai());
         ComboBox_NXB.setSelectedItem(bk.getNXB());
-        ComboBox_NamXB.setSelectedItem(bk.getNamXB());
+        ComboBox_NamXB.setSelectedItem(String.valueOf(bk.getNamXB()));
         spinSoLuong.setValue(bk.getSoLuong());
         txtSoTrang.setText(Integer.toString(bk.getSoTrang()));
         txtGia.setText(Integer.toString(bk.getGia()));

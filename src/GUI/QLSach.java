@@ -291,7 +291,7 @@ public class QLSach extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Chưa chọn dòng để cập nhật", "Thông báo", JOptionPane.WARNING_MESSAGE);}
         else { // A row is selected
         Book bk = BookBUS.getAllBooks().get(selectedRow);
-        SuaSach upbk = new SuaSach(bk, this);
+        CNhatSach upbk = new CNhatSach(bk, this);
         upbk.setLocationRelativeTo(null);
         upbk.setVisible(true);
     }

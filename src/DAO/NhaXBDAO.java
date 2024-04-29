@@ -4,8 +4,10 @@
  */
 package DAO;
 
+import DTO.Book;
 import DTO.NhaXB;
 import JDBCConnection.JDBCConnection;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -44,48 +46,65 @@ public class NhaXBDAO {
 
     public void addNXB (NhaXB nxb) {
         Connection conn = JDBCConnection.getJDBCConnection();
-        String sql = "INSERT INTO NHAXUATBAN(TENNXB, DIACHI, SODT) VALUES (?,?,?)";
+        String sql = "{call ThemNXB(?,?,?)}";
         try {
-            PreparedStatement pst = conn.prepareStatement(sql);
+            CallableStatement cst = conn.prepareCall(sql);
             //pst.setString(1,nxb.getMaNXB());
-            pst.setString(1,nxb.getTenNXB());
-            pst.setString(2,nxb.getDiaChi());
-            pst.setString(3,nxb.getSDT());
+            cst.setString(1,nxb.getTenNXB());
+            cst.setString(2,nxb.getDiaChi());
+            cst.setString(3,nxb.getSDT());
             
-            int rs = pst.executeUpdate();
+            int rs = cst.executeUpdate();
             System.out.println(rs);
         }
         catch (SQLException e) {
             e.printStackTrace();
+        }
+        finally {
+            try {
+                if (conn != null) conn.close(); // Đóng kết nối
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
     }
     public void deleteNXB( String ID) {
         Connection conn = JDBCConnection.getJDBCConnection();
-        String sql = "DELETE FROM NHAXUATBAN WHERE MANXB = ?";
-        try {
-            PreparedStatement pst = conn.prepareStatement(sql);
-            pst.setString(1,ID);
-            int rs = pst.executeUpdate();
+        String sql = "{call XoaNXB(?)}";
+        try (CallableStatement cst = conn.prepareCall(sql)) {
+            cst.setString(1, ID); 
+            int rs = cst.executeUpdate(); 
             System.out.println(rs);
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (conn != null) conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
     }
     public void updateNXB(NhaXB nxb) {
         Connection conn = JDBCConnection.getJDBCConnection();
-        String sql = "UPDATE NHAXUATBAN SET TENNXB = ?, DIACHI = ?, SODT = ? WHERE MANXB = ?";
-        try {
-            PreparedStatement pst = conn.prepareStatement(sql);
-            pst.setString(1, nxb.getTenNXB());
-            pst.setString(2, nxb.getDiaChi());
-            pst.setString(3, nxb.getSDT());
-            pst.setString(4, nxb.getMaNXB());
-            int rs = pst.executeUpdate();
+        String sql = "{call CapNhatNXB(?, ?, ?, ?)}";
+        try (CallableStatement cst = conn.prepareCall(sql)) {
+            cst.setString(1, nxb.getMaNXB());
+            cst.setString(2, nxb.getTenNXB());
+            cst.setString(3, nxb.getDiaChi());
+            cst.setString(4, nxb.getSDT());
+            int rs = cst.executeUpdate();
             System.out.println(rs);
         }
         catch (SQLException e) {
             e.printStackTrace();
+        }
+         finally {
+            try {
+                if (conn != null) conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
     }
     public List<NhaXB> searchNXBByID(String query) {
@@ -176,7 +195,41 @@ public class NhaXBDAO {
     }
     return nxbs;
 }
+    public boolean checkNXBReferences(String MaNXB) {
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        boolean hasReferences = false;
 
-    
+        try {
+            conn = JDBCConnection.getJDBCConnection(); // Thay thế YourDatabaseConnection bằng phương thức kết nối của bạn
+
+            String sql = "SELECT COUNT(*) FROM SACH WHERE MANXB = ?";
+            statement = conn.prepareStatement(sql);
+            statement.setString(1, MaNXB);
+            resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                if (count > 0) {
+                    hasReferences = true;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Đóng kết nối và các đối tượng liên quan
+            try {
+                if (resultSet != null) resultSet.close();
+                if (statement != null) statement.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return hasReferences;
+    }
 }
+
 

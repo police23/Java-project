@@ -5,6 +5,7 @@
 package BUS;
 
 import DAO.NhaXBDAO;
+import DTO.Book;
 import DTO.NhaXB;
 
 import java.util.List;
@@ -55,5 +56,9 @@ public class NhaXBBUS {
     public List<NhaXB> searchNXBByPhone(String query) {
         return NhaXBDAO.searchNXBByPhone(query);
 }
+    public boolean checkNXBReferences(String MaNXB) {
+        return NhaXBDAO.checkNXBReferences(MaNXB);
+    }
+    
 }
     

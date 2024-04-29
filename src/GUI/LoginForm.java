@@ -130,10 +130,17 @@ public class LoginForm extends javax.swing.JFrame {
                     dispose();
                     if ("0".equals(role)) {
                         AdminPage admin = new AdminPage();
+                        admin.setLocationRelativeTo(null);
                         admin.setVisible(true);
                     }
                     else if ("1".equals(role)) {
+                        LibrarianPage lib = new LibrarianPage();
+                        lib.setLocationRelativeTo(null);
+                        lib.setVisible(true);
+                    }
+                    else if ("2".equals(role)) {
                         ReaderPage reader = new ReaderPage();
+                        reader.setLocationRelativeTo(null);
                         reader.setVisible(true);
                     }
                 } else {

@@ -230,13 +230,24 @@ public class QLNXB extends javax.swing.JPanel {
 
     private void btnXoaNXBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaNXBActionPerformed
         int row = tableNXB.getSelectedRow();
-        int confirm = JOptionPane.showConfirmDialog(this,"Bạn có chắc xóa sách này không ? ");
-        if (confirm == JOptionPane.YES_OPTION) {
-            String MaNXB = String.valueOf(String.valueOf(tableNXB.getValueAt(row,0)));
-            NhaXBBUS NXBBUS = new NhaXBBUS(); // Create an instance of BookService
-            NXBBUS.deleteNXB(MaNXB);
-            updateTable(); // Update the table after deletion
-            }           
+        if (row == -1) {
+        // Kiểm tra nếu không có hàng được chọn trong bảng
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một nhà xuất bản để xóa.");
+            return; // Kết thúc phương thức nếu không có hàng nào được chọn
+    }
+
+        String MaNXB = String.valueOf(tableNXB.getValueAt(row, 0));
+        NhaXBBUS nhaXBBUS = new NhaXBBUS();
+        boolean hasReferences = nhaXBBUS.checkNXBReferences(MaNXB);
+        if (hasReferences) {
+            JOptionPane.showMessageDialog(this, "Không thể xóa nhà xuất bản này vẫn còn sách thuộc nhà xuất bản đó");
+    }   else {
+            int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc xóa nhà xuất bản này không ?");
+            if (confirm == JOptionPane.YES_OPTION) {
+                nhaXBBUS.deleteNXB(MaNXB);
+                updateTable();
+        }
+    }
     }//GEN-LAST:event_btnXoaNXBActionPerformed
 
     private void btnSuaNXBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaNXBActionPerformed

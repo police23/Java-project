@@ -6,6 +6,7 @@ package DAO;
 
 import DTO.Book;
 import JDBCConnection.JDBCConnection;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -55,61 +56,77 @@ public class BookDAO {
 
     public void addBook (Book bo) {
         Connection conn = JDBCConnection.getJDBCConnection();
-        String sql = "INSERT INTO SACH(MASACH,TENSACH,TACGIA,MATHELOAI, MANXB, NAMXB, SOTRANG,SOLUONG, GIA, MOTA) VALUES (?,?,?,?,?,?,?,?,?,?)";
+        String sql = "{call ThemSach(?,?,?,?,?,?,?,?,?,?)}";
         try {
-            PreparedStatement pst = conn.prepareStatement(sql);
-            pst.setString(1,bo.getMaSach());
-            pst.setString(2,bo.getTenSach());
-            pst.setString(3,bo.getTacGia());
-            pst.setString(4,bo.getMaTheLoai());
-            pst.setString(5,bo.getMaNXB());
-            pst.setInt(6,bo.getNamXB());
-            pst.setInt(7,bo.getSoTrang());
-            pst.setInt(8,bo.getSoLuong());
-            pst.setInt(9,bo.getGia());
-            pst.setString(10,bo.getMoTa());
-            int rs = pst.executeUpdate();
+            CallableStatement cst = conn.prepareCall(sql);
+            cst.setString(1,bo.getMaSach());
+            cst.setString(2,bo.getTenSach());
+            cst.setString(3,bo.getTacGia());
+            cst.setString(4,bo.getMaTheLoai());
+            cst.setString(5,bo.getMaNXB());
+            cst.setInt(6,bo.getNamXB());
+            cst.setInt(7,bo.getSoTrang());
+            cst.setInt(8,bo.getSoLuong());
+            cst.setInt(9,bo.getGia());
+            cst.setString(10,bo.getMoTa());
+            int rs = cst.executeUpdate();
             System.out.println(rs);
         }
         catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (conn != null) conn.close(); // Đóng kết nối
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
     }
     public void deleteBook( String ID) {
         Connection conn = JDBCConnection.getJDBCConnection();
-        String sql = "DELETE FROM SACH WHERE MASACH = ?";
-        try {
-            PreparedStatement pst = conn.prepareStatement(sql);
-            pst.setString(1,ID);
-            int rs = pst.executeUpdate();
+        String sql = "{call XoaSach(?)}";
+        try (CallableStatement cst = conn.prepareCall(sql)) {
+            cst.setString(1, ID); 
+            int rs = cst.executeUpdate(); 
             System.out.println(rs);
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (conn != null) conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
-    }
+}
     public void updateBook(Book bo) {
         Connection conn = JDBCConnection.getJDBCConnection();
-        String sql = "UPDATE SACH SET MASACH = ?, TENSACH = ?, TACGIA = ?, MATHELOAI = ?, MANXB = ?, NAMXB = ?, SOTRANG = ?, SOLUONG = ?, GIA = ?, MOTA = ?";
-        try {
-            PreparedStatement pst = conn.prepareStatement(sql);
-            pst.setString(1,bo.getMaSach());
-            pst.setString(2,bo.getTenSach());
-            pst.setString(3,bo.getTacGia());
-            pst.setString(4, bo.getMaTheLoai());
-            pst.setString(5,bo.getMaNXB());
-            pst.setInt(6,bo.getNamXB());
-            pst.setInt(7,bo.getSoTrang());
-            pst.setInt(8,bo.getSoLuong());
-            pst.setInt(9,bo.getGia());
-            pst.setString(10,bo.getMoTa());
-            int rs = pst.executeUpdate();
+        String sql = "{call CapNhatSach(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}"; // Gọi stored procedure
+        try (CallableStatement cst = conn.prepareCall(sql)) {
+            cst.setString(1, bo.getMaSach());
+            cst.setString(2, bo.getTenSach());
+            cst.setString(3, bo.getTacGia());
+            cst.setString(4, bo.getMaTheLoai());
+            cst.setString(5, bo.getMaNXB());
+            cst.setInt(6, bo.getNamXB());
+            cst.setInt(7, bo.getSoTrang());
+            cst.setInt(8, bo.getSoLuong());
+            cst.setInt(9, bo.getGia());
+            cst.setString(10, bo.getMoTa());
+            int rs = cst.executeUpdate();
             System.out.println(rs);
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
+        finally {
+            try {
+                if (conn != null) conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
+    
     public List<Book> searchBookByID(String query) {
     List<Book> bks = new ArrayList<Book>();
     Connection conn = JDBCConnection.getJDBCConnection();
@@ -280,6 +297,8 @@ public class BookDAO {
         }
         return maNXB;
     }
+    
 }
+   
     
    
