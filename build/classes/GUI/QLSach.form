@@ -191,12 +191,12 @@
                       <Renderer/>
                     </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
+                      <Title value="Th&#x1ec3; lo&#x1ea1;i"/>
                       <Editor/>
                       <Renderer/>
                     </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
+                      <Title value="S&#x1ed1; l&#x1b0;&#x1ee3;ng"/>
                       <Editor/>
                       <Renderer/>
                     </Column>

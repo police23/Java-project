@@ -33,7 +33,7 @@ public class QLNXB extends javax.swing.JPanel {
         dtm.addColumn("Địa chỉ NXB");
         dtm.addColumn("Số điện thoại NXB");
         updateTable();
-        LoadTimTheo();
+        LoadSearchBy();
     }
     public void updateTable() {   
         dtm.setRowCount(0); // Clear existing rows
@@ -43,7 +43,7 @@ public class QLNXB extends javax.swing.JPanel {
         }
         this.tableNXB.setRowHeight(30);
     };
-    public void LoadTimTheo() {
+    public void LoadSearchBy() {
         ComboBox_Tim.removeAllItems();
         ComboBox_Tim.addItem("Mã NXB");
         ComboBox_Tim.addItem("Tên NXB");
@@ -231,9 +231,9 @@ public class QLNXB extends javax.swing.JPanel {
     private void btnXoaNXBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaNXBActionPerformed
         int row = tableNXB.getSelectedRow();
         if (row == -1) {
-        // Kiểm tra nếu không có hàng được chọn trong bảng
+        
             JOptionPane.showMessageDialog(this, "Vui lòng chọn một nhà xuất bản để xóa.");
-            return; // Kết thúc phương thức nếu không có hàng nào được chọn
+            return; 
     }
 
         String MaNXB = String.valueOf(tableNXB.getValueAt(row, 0));
@@ -255,14 +255,16 @@ public class QLNXB extends javax.swing.JPanel {
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Chưa chọn dòng để cập nhật", "Thông báo", JOptionPane.WARNING_MESSAGE);}
         else { // A row is selected
-        NhaXB nxb = NXBBUS.getAllNXB().get(selectedRow);
-        CapNhatNXB capNhatNXB = new CapNhatNXB(nxb, this);
-        capNhatNXB.setVisible(true);
+        String selectedMaNXB = (String) dtm.getValueAt(selectedRow, 0);
+        NhaXB nxb = NXBBUS.getNXBByMa(selectedMaNXB);
+        CapNhatNXB cn = new CapNhatNXB(nxb, this);
+        cn.setLocationRelativeTo(null);
+        cn.setVisible(true);
     }
     }//GEN-LAST:event_btnSuaNXBActionPerformed
 
     private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
-        String query = txtTim.getText(); // Get the text from the txtTim JTextField
+        String query = txtTim.getText(); 
         List <NhaXB> searchResults = null;
         if (ComboBox_Tim.getSelectedIndex() == 0) {
             searchResults = NXBBUS.searchNXBByID(query);}

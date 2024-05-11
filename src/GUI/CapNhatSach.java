@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  *
  * @author User
  */
-public class CNhatSach extends javax.swing.JFrame {
+public class CapNhatSach extends javax.swing.JFrame {
     BookBUS BookBUS;
     Book bk;
     JDBCConnection cn = new JDBCConnection();
@@ -28,7 +28,7 @@ public class CNhatSach extends javax.swing.JFrame {
     /**
      * Creates new form UpdateBook
      */
-    public CNhatSach(Book bk, QLSach qls) {
+    public CapNhatSach(Book bk, QLSach qls) {
         initComponents();
         LoadTheLoai();
         LoadNhaXB();

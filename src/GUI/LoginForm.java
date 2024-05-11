@@ -12,6 +12,7 @@ import javax.mail.internet.*;
 import java.util.Properties;
 import javax.activation.DataSource;
 import java.sql.PreparedStatement;
+import login.CurrentUser;
 import login.InputOtp;
 /**
  *
@@ -122,11 +123,12 @@ public class LoginForm extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Chưa nhập mật khẩu");
             } else {
                 Statement stm = con.createStatement();
-                String sql = "SELECT * FROM TAIKHOAN WHERE TENDANGNHAP='" + user + "' AND MATKHAU='" + pass + "'";
+                String sql = "SELECT * FROM TAIKHOAN WHERE MATAIKHOAN='" + user + "' AND MATKHAU='" + pass + "'";
                 ResultSet rs = stm.executeQuery(sql);
 
                 if (rs.next()) {
                     String role = rs.getString("MAVAITRO");
+                    CurrentUser.getInstance().setMaND(user); 
                     dispose();
                     if ("0".equals(role)) {
                         AdminPage admin = new AdminPage();

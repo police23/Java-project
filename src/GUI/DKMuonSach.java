@@ -4,17 +4,58 @@
  */
 package GUI;
 
+import BUS.BookBUS;
+import BUS.DKMuonBUS;
+import DAO.DKMuonDAO;
+import DTO.Book;
+import DTO.DKMuon;
+import JDBCConnection.JDBCConnection;
+import java.sql.*;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import login.CurrentUser;
+
 /**
  *
  * @author User
  */
 public class DKMuonSach extends javax.swing.JPanel {
+    BookBUS BookBUS;
+    DefaultTableModel dtm;
 
-    /**
-     * Creates new form DangKyMS
-     */
+   
     public DKMuonSach() {
+        
         initComponents();
+        BookBUS = new BookBUS();
+        dtm = new DefaultTableModel();
+        tableSach.setModel(dtm);
+        dtm.addColumn("Mã sách");
+        dtm.addColumn("Tên sách");
+        dtm.addColumn("Tác giả");
+        dtm.addColumn("Thể loại");
+        dtm.addColumn("Số lượng");
+        updateTable();
+        LoadSearchBy();
+        tableGioDK.setRowHeight(27);
+        
+    }
+    public void updateTable() {   
+        dtm.setRowCount(0); // Clear existing rows
+        List<Book> bks = BookBUS.getBooksAvailable();
+        bks.sort((Book b1, Book b2) -> b1.getMaSach().compareTo(b2.getMaSach()));
+        for (Book bk : bks) {
+            dtm.addRow(new Object[] {bk.getMaSach(), bk.getTenSach(), bk.getTacGia(), bk.getTheLoai(), bk.getSoLuong()});
+        }
+        this.tableSach.setRowHeight(30);
+    };
+    public void LoadSearchBy() {
+        ComboBox_Search.removeAllItems();
+        ComboBox_Search.addItem("Mã sách");
+        ComboBox_Search.addItem("Tên sách");
+        ComboBox_Search.addItem("Tác giả");
+        ComboBox_Search.addItem("Thể loại");
     }
 
     /**
@@ -26,19 +67,304 @@ public class DKMuonSach extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 850, Short.MAX_VALUE)
+        jProgressBar1 = new javax.swing.JProgressBar();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tableSach = new javax.swing.JTable();
+        jPanel26 = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
+        ComboBox_Search = new javax.swing.JComboBox<>();
+        btnTim = new javax.swing.JButton();
+        btnRefresh = new javax.swing.JButton();
+        txtTim = new javax.swing.JTextField();
+        jPanel6 = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tableGioDK = new javax.swing.JTable();
+        btnDKMuon = new javax.swing.JButton();
+        btnXoa = new javax.swing.JButton();
+        btnThemVaoGio = new javax.swing.JButton();
+        btnCTDK = new javax.swing.JButton();
+        btnCTSach = new javax.swing.JButton();
+
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tableSach.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Mã sách", "Tên sách", "Tác giả", "Thể loại", "Số lượng"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, true, true, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane5.setViewportView(tableSach);
+
+        add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 177, 830, 360));
+
+        jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder("Tìm kiếm"));
+
+        jLabel20.setText("Tìm theo :");
+
+        ComboBox_Search.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        btnTim.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/loupe.png"))); // NOI18N
+        btnTim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimActionPerformed(evt);
+            }
+        });
+
+        btnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-refresh-24.png"))); // NOI18N
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
+        jPanel26.setLayout(jPanel26Layout);
+        jPanel26Layout.setHorizontalGroup(
+            jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel26Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtTim, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ComboBox_Search, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnTim, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 515, Short.MAX_VALUE)
+        jPanel26Layout.setVerticalGroup(
+            jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel26Layout.createSequentialGroup()
+                .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnTim, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(btnRefresh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(txtTim, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(ComboBox_Search)
+                    .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
+
+        add(jPanel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, 480, 60));
+
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Giỏ đăng ký sách", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14), new java.awt.Color(255, 102, 0))); // NOI18N
+
+        tableGioDK.setAutoCreateRowSorter(true);
+        tableGioDK.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Mã sách", "Tên sách"
+            }
+        ));
+        jScrollPane6.setViewportView(tableGioDK);
+
+        btnDKMuon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-borrow-book-24.png"))); // NOI18N
+        btnDKMuon.setText("Đăng ký mượn");
+        btnDKMuon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDKMuonActionPerformed(evt);
+            }
+        });
+
+        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/remove (1).png"))); // NOI18N
+        btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(btnXoa)
+                .addGap(18, 18, 18)
+                .addComponent(btnDKMuon)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnDKMuon)
+                    .addComponent(btnXoa)))
+        );
+
+        add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 170));
+        jPanel6.getAccessibleContext().setAccessibleName("Giỏ đăng ký mượn sách");
+
+        btnThemVaoGio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-basket-24.png"))); // NOI18N
+        btnThemVaoGio.setText("Thêm vào giỏ");
+        btnThemVaoGio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemVaoGioActionPerformed(evt);
+            }
+        });
+        add(btnThemVaoGio, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 110, 150, 40));
+
+        btnCTDK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-detail-24.png"))); // NOI18N
+        btnCTDK.setText("Chi tiết đăng ký");
+        btnCTDK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCTDKActionPerformed(evt);
+            }
+        });
+        add(btnCTDK, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 110, 160, 40));
+
+        btnCTSach.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-detail-24 (1).png"))); // NOI18N
+        btnCTSach.setText("Thông tin sách");
+        btnCTSach.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCTSachActionPerformed(evt);
+            }
+        });
+        add(btnCTSach, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 110, -1, 40));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
+        String query = txtTim.getText();
+        List <Book> searchResults = null;
+        if (ComboBox_Search.getSelectedIndex() == 0) {
+            searchResults = BookBUS.searchBookByID(query);}
+        else if (ComboBox_Search.getSelectedIndex() == 1) {
+            searchResults = BookBUS.searchBookByName(query);}
+        else if (ComboBox_Search.getSelectedIndex() == 2) {
+            searchResults = BookBUS.searchBookByAuthor(query);}
+        else if (ComboBox_Search.getSelectedIndex() == 3) {
+            searchResults = BookBUS.searchBookByCategory(query);}
+
+
+        if (searchResults != null && !searchResults.isEmpty()) {
+            dtm.setRowCount(0);
+            for (Book bk : searchResults) {
+                dtm.addRow(new Object[] {bk.getMaSach(), bk.getTenSach(), bk.getTacGia(), bk.getTheLoai(), bk.getSoLuong()});
+            }
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "Không tìm thấy dữ liệu", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_btnTimActionPerformed
+
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        updateTable();
+    }//GEN-LAST:event_btnRefreshActionPerformed
+
+    private void btnDKMuonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDKMuonActionPerformed
+        DefaultTableModel model = (DefaultTableModel) tableGioDK.getModel();
+        int numbk = model.getRowCount();
+        if (numbk == 0) {
+        JOptionPane.showMessageDialog(null,"Chưa chọn sách để đăng ký mượn","Lỗi",JOptionPane.ERROR_MESSAGE);
+    }
+         else if (numbk > 3) {
+        JOptionPane.showMessageDialog(null,"Chỉ được đăng ký mượn tối đa 3 quyển sách","Lỗi",JOptionPane.ERROR_MESSAGE);
+    }
+        else {
+        String[] maSachArray = new String[numbk];
+        for (int i = 0; i < numbk; i++) {
+            maSachArray[i] = model.getValueAt(i, 0).toString(); 
+        }
+
+       
+        DKMuon dkmuon = new DKMuon();
+        dkmuon.setMaDG(CurrentUser.getInstance().getMaND());
+
+       
+        DKMuonDAO dkMuonDAO = new DKMuonDAO();
+        try {
+            dkMuonDAO.addDK(dkmuon, maSachArray);
+            JOptionPane.showMessageDialog(null,"Đăng ký mượn sách thành công");
+            updateTable();
+        } catch (SQLException e) {
+            if (e.getErrorCode() == 20001) {
+                JOptionPane.showMessageDialog(null,"Độc giả đã đăng ký mượn sách trước đó","Lỗi",JOptionPane.ERROR_MESSAGE);
+            } else if (e.getErrorCode() == 20002) {
+                JOptionPane.showMessageDialog(null,"Độc giả chưa trả hết sách","Lỗi",JOptionPane.ERROR_MESSAGE);
+            return; 
+        }
+        }
+         }
+    }//GEN-LAST:event_btnDKMuonActionPerformed
+
+    private void btnCTSachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCTSachActionPerformed
+        int selectedRow = tableSach.getSelectedRow();
+        if (selectedRow != -1) { 
+        String selectedMaSach = (String) dtm.getValueAt(selectedRow, 0);
+        Book bk = BookBUS.getBookByMaSach(selectedMaSach);
+        CTSach bd = new CTSach(bk, this);
+        bd.setLocationRelativeTo(null);
+        bd.setVisible(true);
+    }
+    }//GEN-LAST:event_btnCTSachActionPerformed
+
+    private void btnThemVaoGioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemVaoGioActionPerformed
+        int selectedRow = tableSach.getSelectedRow();
+        if (selectedRow != -1) {
+            String maSach = (String) tableSach.getValueAt(selectedRow,0);
+            String tenSach = (String) tableSach.getValueAt(selectedRow,1);
+            DefaultTableModel model = (DefaultTableModel) tableGioDK.getModel();
+            for (int i = 0; i < model.getRowCount(); i++) {
+                if (model.getValueAt(i,0).equals(maSach)) {
+                    JOptionPane.showMessageDialog(null,"Sách này đã được thêm vào giỏ","Lỗi", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+            model.addRow(new Object [] {maSach, tenSach});
+        }
+    }//GEN-LAST:event_btnThemVaoGioActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        int selectedRow = tableGioDK.getSelectedRow();
+        if (selectedRow != -1) {
+            DefaultTableModel model = (DefaultTableModel) tableGioDK.getModel();
+            model.removeRow(selectedRow);
+        }
+    }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void btnCTDKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCTDKActionPerformed
+
+        CTDKMuon ctdk = new CTDKMuon();
+        ctdk.setUpdateTable(this::updateTable);
+        ctdk.setLocationRelativeTo(null);
+        ctdk.setVisible(true);
+    }//GEN-LAST:event_btnCTDKActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> ComboBox_Search;
+    private javax.swing.JButton btnCTDK;
+    private javax.swing.JButton btnCTSach;
+    private javax.swing.JButton btnDKMuon;
+    private javax.swing.JButton btnRefresh;
+    private javax.swing.JButton btnThemVaoGio;
+    private javax.swing.JButton btnTim;
+    private javax.swing.JButton btnXoa;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JPanel jPanel26;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JTable tableGioDK;
+    private javax.swing.JTable tableSach;
+    private javax.swing.JTextField txtTim;
     // End of variables declaration//GEN-END:variables
 }

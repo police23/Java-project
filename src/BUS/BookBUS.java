@@ -23,14 +23,17 @@ public class BookBUS {
     public List<Book> getAllBooks() {
         return BookDAO.getAllBooks();
     }
+    public List<Book> getBooksAvailable() {
+        return BookDAO.getBooksAvailable();
+    }
     public void addBook(Book bo) {
         BookDAO.addBook(bo);
     }
     public boolean checkBookIdExists(String id) {
-        List<Book> books = getAllBooks(); // Get all books from the database
+        List<Book> books = getAllBooks(); 
         for (Book book : books) {
             if (book.getMaSach().equals(id)) {
-                return true; // ID exists
+                return true;
             }
         }
         return false; 
@@ -59,6 +62,9 @@ public class BookBUS {
     }
     public String getMaNXBByTen(String tenNXB) {
         return BookDAO.getMaNXBByTen(tenNXB);
+    }
+    public Book getBookByMaSach(String maSach) {
+        return BookDAO.getBookByMaSach(maSach);
     }
 }
 

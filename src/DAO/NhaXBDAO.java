@@ -4,7 +4,6 @@
  */
 package DAO;
 
-import DTO.Book;
 import DTO.NhaXB;
 import JDBCConnection.JDBCConnection;
 import java.sql.CallableStatement;
@@ -113,7 +112,7 @@ public class NhaXBDAO {
     String sql = "SELECT * FROM NHAXUATBAN WHERE MANXB LIKE ?";
     try {
         PreparedStatement ps = conn.prepareStatement(sql);
-        String searchQuery = "%" + query + "%"; // The '%' is a wildcard character that matches any number of characters
+        String searchQuery = "%" + query + "%"; 
         ps.setString(1, searchQuery);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
@@ -230,6 +229,14 @@ public class NhaXBDAO {
 
         return hasReferences;
     }
+    public NhaXB getNXBByMa(String maNXB) {
+    for (NhaXB nxb : getAllNXB()) {
+        if (nxb.getMaNXB().equals(maNXB)) {
+            return nxb;
+        }
+    }
+    return null; 
+}
 }
 
 

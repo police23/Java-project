@@ -19,6 +19,7 @@ public class CTSach extends javax.swing.JFrame {
     JDBCConnection cn = new JDBCConnection();
     Connection conn;
     QLSach qls;
+    DKMuonSach dk;
 
     /**
      * Creates new form BookDetail
@@ -38,6 +39,22 @@ public class CTSach extends javax.swing.JFrame {
         BookBUS = new BookBUS();
         this.bk = bk;
         this.qls = qls;
+    }
+    public CTSach(Book bk, DKMuonSach dk) {
+        initComponents();
+        labelMaSach.setText(bk.getMaSach());
+        labelTenSach.setText(bk.getTenSach());
+        labelTheLoai.setText(bk.getTheLoai());
+        labelTacGia.setText(bk.getTacGia());
+        labelNXB.setText(bk.getNXB());
+        labelSoLuong.setText(Integer.toString(bk.getSoLuong()));
+        labelNamXB.setText(Integer.toString(bk.getNamXB()));
+        labelGia.setText(Integer.toString(bk.getGia()));
+        labelMoTa.setText(bk.getMoTa());
+        labelSoTrang.setText(Integer.toString(bk.getSoTrang()));
+        BookBUS = new BookBUS();
+        this.bk = bk;
+        this.dk = dk;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -97,52 +114,61 @@ public class CTSach extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("Mã sách :");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("Tên sách :");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Tác giả :");
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setText("Thể loại :");
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setText("Nhà XB :");
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setText("Năm XB :");
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel12.setText("Số trang :");
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel9.setText("Số lượng :");
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setText("Giá :");
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel8.setText("Mô tả : ");
 
+        labelMaSach.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelMaSach.setText("jLabel7");
 
+        labelTenSach.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelTenSach.setText("jLabel7");
 
+        labelTacGia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelTacGia.setText("jLabel7");
 
+        labelNXB.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelNXB.setText("jLabel7");
 
+        labelGia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelGia.setText("jLabel7");
 
+        labelTheLoai.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelTheLoai.setText("jLabel11");
 
+        labelSoTrang.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelSoTrang.setText("jLabel11");
 
+        labelNamXB.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelNamXB.setText("jLabel11");
 
+        labelSoLuong.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelSoLuong.setText("jLabel11");
 
         labelMoTa.setText("j");
@@ -185,7 +211,7 @@ public class CTSach extends javax.swing.JFrame {
                                     .addComponent(labelNXB, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(labelTacGia, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(labelTenSach, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(18, 28, Short.MAX_VALUE)
+                        .addGap(18, 21, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel12)

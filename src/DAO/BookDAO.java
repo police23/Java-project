@@ -52,6 +52,41 @@ public class BookDAO {
         }
         return books;
     }
+    public List <Book> getBooksAvailable() {
+        List <Book> books = new ArrayList<Book>();
+        Connection conn = JDBCConnection.getJDBCConnection();
+        String sql = "SELECT S.*, T.TENTHELOAI, N.TENNXB " +
+                 "FROM SACH S " +
+                 "JOIN THELOAI T ON S.MATHELOAI = T.MATHELOAI " +
+                 "JOIN NHAXUATBAN N ON S.MANXB = N.MANXB " +
+                 "WHERE S.SOLUONG > 0";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Book bo = new Book();
+                bo.setMaSach(rs.getString("MASACH"));
+                bo.setTenSach(rs.getString("TENSACH"));
+                bo.setTacGia(rs.getString("TACGIA"));
+                bo.setSoLuong(rs.getInt("SOLUONG"));
+                bo.setMaNXB(rs.getString("MANXB"));
+                bo.setNXB(rs.getString("TENNXB"));
+                bo.setNamXB(rs.getInt("NAMXB"));
+                bo.setMaTheLoai(rs.getString("MATHELOAI"));
+                bo.setTheLoai(rs.getString("TENTHELOAI"));
+                bo.setSoTrang(rs.getInt("SOTRANG"));
+                bo.setMoTa(rs.getString("MOTA"));
+                bo.setGia(rs.getInt("GIA"));
+                books.add(bo);
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        }
+        return books;
+    }
+    
     
 
     public void addBook (Book bo) {
@@ -76,7 +111,7 @@ public class BookDAO {
             e.printStackTrace();
         } finally {
             try {
-                if (conn != null) conn.close(); // Đóng kết nối
+                if (conn != null) conn.close(); 
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -297,6 +332,14 @@ public class BookDAO {
         }
         return maNXB;
     }
+    public Book getBookByMaSach(String maSach) {
+    for (Book bk : getAllBooks()) {
+        if (bk.getMaSach().equals(maSach)) {
+            return bk;
+        }
+    }
+    return null; 
+}
     
 }
    

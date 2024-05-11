@@ -7,6 +7,7 @@ package GUI;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import login.CurrentUser;
 
 /**
  *
@@ -20,7 +21,7 @@ public class LibrarianPage extends javax.swing.JFrame {
         QLPhat qlp = new QLPhat();
         ThongTinTK tttk = new ThongTinTK();
         BaoCaoTK bc = new BaoCaoTK();
-        DKMuonSach dkms = new DKMuonSach();
+        DSDKMuonSach dsdk = new DSDKMuonSach();
         
         
 
@@ -37,6 +38,7 @@ public class LibrarianPage extends javax.swing.JFrame {
         LibrarianMain.add(qlp);
         LibrarianMain.add(tttk);
         LibrarianMain.add(bc);
+        LibrarianMain.add(dsdk);
         qls.setVisible(false);
         qlxb.setVisible(false);
         qlm.setVisible(false);
@@ -44,7 +46,9 @@ public class LibrarianPage extends javax.swing.JFrame {
         qlp.setVisible(false);
         tttk.setVisible(false);
         bc.setVisible(false);
-        dkms.setVisible(false);
+        dsdk.setVisible(false);
+        String MaTT = CurrentUser.getInstance().getMaND(); 
+        jLabel2.setText(MaTT);
     }
     
     
@@ -103,7 +107,7 @@ public class LibrarianPage extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Thủ thư");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(71, 84, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, -1, -1));
 
         btnQLSach.setBackground(new java.awt.Color(51, 153, 0));
         btnQLSach.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -156,7 +160,7 @@ public class LibrarianPage extends javax.swing.JFrame {
         );
         btnQLNXBLayout.setVerticalGroup(
             btnQLNXBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
         jPanel1.add(btnQLNXB, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 154, -1, 40));
@@ -247,18 +251,18 @@ public class LibrarianPage extends javax.swing.JFrame {
         btnDSDangKyLayout.setHorizontalGroup(
             btnDSDangKyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnDSDangKyLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGap(16, 16, 16)
                 .addComponent(jLabel11)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         btnDSDangKyLayout.setVerticalGroup(
             btnDSDangKyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnDSDangKyLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel11))
         );
 
-        jPanel1.add(btnDSDangKy, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, -1, 40));
+        jPanel1.add(btnDSDangKy, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 210, 40));
         btnDSDangKy.getAccessibleContext().setAccessibleName("");
 
         btnThongTinTK.setBackground(new java.awt.Color(51, 153, 0));
@@ -382,7 +386,7 @@ public class LibrarianPage extends javax.swing.JFrame {
         qlp.setVisible(false);
         tttk.setVisible(false);
         bc.setVisible(false);
-        dkms.setVisible(false);
+        dsdk.setVisible(false);
         
         
     }//GEN-LAST:event_btnQLSachMouseClicked
@@ -404,7 +408,7 @@ public class LibrarianPage extends javax.swing.JFrame {
         qlp.setVisible(false);
         tttk.setVisible(false);
         bc.setVisible(false);
-        dkms.setVisible(false);
+        dsdk.setVisible(false);
     }//GEN-LAST:event_btnDSPhieuMuonMouseClicked
 
     private void btnDSPhieuTraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDSPhieuTraMouseClicked
@@ -424,7 +428,7 @@ public class LibrarianPage extends javax.swing.JFrame {
         qlp.setVisible(false);
         tttk.setVisible(false);
         bc.setVisible(false);
-        dkms.setVisible(false);
+        dsdk.setVisible(false);
         
     }//GEN-LAST:event_btnDSPhieuTraMouseClicked
 
@@ -445,7 +449,7 @@ public class LibrarianPage extends javax.swing.JFrame {
         qlp.setVisible(false);
         tttk.setVisible(false);
         bc.setVisible(false);
-        dkms.setVisible(true);
+        dsdk.setVisible(true);
     }//GEN-LAST:event_btnDSDangKyMouseClicked
 
     private void btnQLNXBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQLNXBMouseClicked
@@ -465,7 +469,7 @@ public class LibrarianPage extends javax.swing.JFrame {
         qlp.setVisible(false);
         tttk.setVisible(false);
         bc.setVisible(false);
-        dkms.setVisible(false);
+        dsdk.setVisible(false);
     }//GEN-LAST:event_btnQLNXBMouseClicked
 
     private void btnThongKeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThongKeMouseClicked
@@ -485,7 +489,7 @@ public class LibrarianPage extends javax.swing.JFrame {
         qlp.setVisible(false);
         tttk.setVisible(false);
         bc.setVisible(true);
-        dkms.setVisible(false);
+        dsdk.setVisible(false);
     }//GEN-LAST:event_btnThongKeMouseClicked
 
     private void btnDSPhieuPhatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDSPhieuPhatMouseClicked
@@ -505,7 +509,7 @@ public class LibrarianPage extends javax.swing.JFrame {
         qlp.setVisible(true);
         tttk.setVisible(false);
         bc.setVisible(false);
-        dkms.setVisible(false);
+        dsdk.setVisible(false);
 
     }//GEN-LAST:event_btnDSPhieuPhatMouseClicked
 
@@ -525,7 +529,7 @@ public class LibrarianPage extends javax.swing.JFrame {
         qlp.setVisible(false);
         tttk.setVisible(true);
         bc.setVisible(false);
-        dkms.setVisible(false);
+        dsdk.setVisible(false);
     }//GEN-LAST:event_btnThongTinTKMouseClicked
 
     /**

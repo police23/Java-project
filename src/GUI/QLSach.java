@@ -36,8 +36,9 @@ public class QLSach extends javax.swing.JPanel {
         LoadSearchBy();
     }
     public void updateTable() {   
-        dtm.setRowCount(0); // Clear existing rows
+        dtm.setRowCount(0); 
         List<Book> bks = BookBUS.getAllBooks();
+        bks.sort((Book b1, Book b2) -> b1.getMaSach().compareTo(b2.getMaSach()));
         for (Book bk : bks) {
             dtm.addRow(new Object[] {bk.getMaSach(), bk.getTenSach(), bk.getTacGia(), bk.getTheLoai(), bk.getSoLuong()});
         }
@@ -153,6 +154,10 @@ public class QLSach extends javax.swing.JPanel {
             }
         });
         jScrollPane5.setViewportView(tableSach);
+        if (tableSach.getColumnModel().getColumnCount() > 0) {
+            tableSach.getColumnModel().getColumn(3).setHeaderValue("Thể loại");
+            tableSach.getColumnModel().getColumn(4).setHeaderValue("Số lượng");
+        }
 
         jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder("Tìm kiếm"));
 
@@ -239,23 +244,6 @@ public class QLSach extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnThemSachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemSachActionPerformed
-        ThemSach addb = new ThemSach(this);
-        addb.setLocationRelativeTo(null);
-        addb.setVisible(true);
-    }//GEN-LAST:event_btnThemSachActionPerformed
-
-    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        int row = tableSach.getSelectedRow();
-        int confirm = JOptionPane.showConfirmDialog(this,"Bạn có chắc xóa sách này không ? ");
-        if (confirm == JOptionPane.YES_OPTION) {
-            String MaSach = String.valueOf(String.valueOf(tableSach.getValueAt(row,0)));
-            BookBUS BookBUS = new BookBUS(); // Create an instance of BookService
-            BookBUS.deleteBook(MaSach);
-            updateTable(); // Update the table after deletion
-            }                                        
-    }//GEN-LAST:event_btnXoaActionPerformed
-
     private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
         String query = txtTim.getText();
         List <Book> searchResults = null;
@@ -268,7 +256,7 @@ public class QLSach extends javax.swing.JPanel {
         else if (ComboBox_Search.getSelectedIndex() == 3) {
             searchResults = BookBUS.searchBookByCategory(query);}
 
-    // Clear the table and add the search results
+
     
     if (searchResults != null && !searchResults.isEmpty()) {
         dtm.setRowCount(0);
@@ -285,30 +273,48 @@ public class QLSach extends javax.swing.JPanel {
         updateTable();
     }//GEN-LAST:event_btnRefreshActionPerformed
 
+    private void btnCTSachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCTSachActionPerformed
+        int selectedRow = tableSach.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Chưa chọn dòng để xem chi tiết", "Thông báo", JOptionPane.WARNING_MESSAGE);}
+        else {
+            String selectedMaSach = (String) dtm.getValueAt(selectedRow, 0);
+            Book bk = BookBUS.getBookByMaSach(selectedMaSach);
+            CTSach bd = new CTSach(bk, this);
+            bd.setLocationRelativeTo(null);
+            bd.setVisible(true);
+        }
+    }//GEN-LAST:event_btnCTSachActionPerformed
+
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         int selectedRow = tableSach.getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Chưa chọn dòng để cập nhật", "Thông báo", JOptionPane.WARNING_MESSAGE);}
         else { // A row is selected
-        Book bk = BookBUS.getAllBooks().get(selectedRow);
-        CNhatSach upbk = new CNhatSach(bk, this);
-        upbk.setLocationRelativeTo(null);
-        upbk.setVisible(true);
-    }
+            String selectedMaSach = (String) dtm.getValueAt(selectedRow, 0);
+            Book bk = BookBUS.getBookByMaSach(selectedMaSach);
+            CapNhatSach upbk = new CapNhatSach(bk, this);
+            upbk.setLocationRelativeTo(null);
+            upbk.setVisible(true);
+        }
     }//GEN-LAST:event_btnSuaActionPerformed
 
-    private void btnCTSachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCTSachActionPerformed
-        int selectedRow = tableSach.getSelectedRow();
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Chưa chọn dòng để xem chi tiết", "Thông báo", JOptionPane.WARNING_MESSAGE);}
-        else { // A row is selected
-        Book bk = BookBUS.getAllBooks().get(selectedRow);
-        CTSach bd = new CTSach(bk, this);
-        bd.setLocationRelativeTo(null);
-        bd.setVisible(true);
-    }
-    }//GEN-LAST:event_btnCTSachActionPerformed
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        int row = tableSach.getSelectedRow();
+        int confirm = JOptionPane.showConfirmDialog(this,"Bạn có chắc xóa sách này không ? ");
+        if (confirm == JOptionPane.YES_OPTION) {
+            String MaSach = String.valueOf(String.valueOf(tableSach.getValueAt(row,0)));
+            BookBUS BookBUS = new BookBUS();
+            BookBUS.deleteBook(MaSach);
+            updateTable();
+        }
+    }//GEN-LAST:event_btnXoaActionPerformed
 
+    private void btnThemSachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemSachActionPerformed
+        ThemSach addb = new ThemSach(this);
+        addb.setLocationRelativeTo(null);
+        addb.setVisible(true);
+    }//GEN-LAST:event_btnThemSachActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ComboBox_Search;

@@ -21,7 +21,7 @@ public class AdminPage extends javax.swing.JFrame {
         ThongTinTK tttk = new ThongTinTK();
         BaoCaoTK bc = new BaoCaoTK();
         QLNguoiDung qlnd = new QLNguoiDung();
-        DKMuonSach dkms = new DKMuonSach();
+        DSDKMuonSach dsdk = new DSDKMuonSach();
         
 
     /**
@@ -32,6 +32,12 @@ public class AdminPage extends javax.swing.JFrame {
         btnLogOut.setFocusPainted(false);
         LibrarianMain.add(qls);
         LibrarianMain.add(qlxb);
+        LibrarianMain.add(qlm);
+        LibrarianMain.add(qlt);
+        LibrarianMain.add(qlp);
+        LibrarianMain.add(tttk);
+        LibrarianMain.add(bc);
+        LibrarianMain.add(dsdk);
         qls.setVisible(false);
         qlxb.setVisible(false);
         qlm.setVisible(false);
@@ -40,7 +46,7 @@ public class AdminPage extends javax.swing.JFrame {
         tttk.setVisible(false);
         bc.setVisible(false);
         qlnd.setVisible(false);
-        dkms.setVisible(false);
+        dsdk.setVisible(false);
     }
     public void setColor(JPanel jpanel) {
         Color color = new Color(51,102,0);
@@ -391,7 +397,7 @@ public class AdminPage extends javax.swing.JFrame {
         tttk.setVisible(false);
         bc.setVisible(false);
         qlnd.setVisible(false);
-        dkms.setVisible(false);
+        dsdk.setVisible(false);
 
     }//GEN-LAST:event_btnQLSachMouseClicked
 
@@ -414,7 +420,7 @@ public class AdminPage extends javax.swing.JFrame {
         tttk.setVisible(false);
         bc.setVisible(false);
         qlnd.setVisible(false);
-        dkms.setVisible(false);
+        dsdk.setVisible(false);
     }//GEN-LAST:event_btnQLNXBMouseClicked
 
     private void btnDSPhieuTraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDSPhieuTraMouseClicked
@@ -436,7 +442,7 @@ public class AdminPage extends javax.swing.JFrame {
         tttk.setVisible(false);
         bc.setVisible(false);
         qlnd.setVisible(false);
-        dkms.setVisible(false);
+        dsdk.setVisible(false);
 
     }//GEN-LAST:event_btnDSPhieuTraMouseClicked
 
@@ -469,7 +475,7 @@ public class AdminPage extends javax.swing.JFrame {
         tttk.setVisible(false);
         bc.setVisible(false);
         qlnd.setVisible(false);
-        dkms.setVisible(false);
+        dsdk.setVisible(false);
     }//GEN-LAST:event_btnDSPhieuMuonMouseClicked
 
     private void btnDSDangKyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDSDangKyMouseClicked
@@ -491,7 +497,7 @@ public class AdminPage extends javax.swing.JFrame {
         tttk.setVisible(false);
         bc.setVisible(false);
         qlnd.setVisible(false);
-        dkms.setVisible(true);
+        dsdk.setVisible(true);
     }//GEN-LAST:event_btnDSDangKyMouseClicked
 
     private void btnQLNguoiDungMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQLNguoiDungMouseClicked
@@ -513,7 +519,7 @@ public class AdminPage extends javax.swing.JFrame {
         tttk.setVisible(false);
         bc.setVisible(false);
         qlnd.setVisible(true);
-        dkms.setVisible(false);
+        dsdk.setVisible(false);
     }//GEN-LAST:event_btnQLNguoiDungMouseClicked
 
     private void btnDSPhieuPhatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDSPhieuPhatMouseClicked
@@ -535,7 +541,7 @@ public class AdminPage extends javax.swing.JFrame {
         tttk.setVisible(false);
         bc.setVisible(false);
         qlnd.setVisible(false);
-        dkms.setVisible(false);
+        dsdk.setVisible(false);
     }//GEN-LAST:event_btnDSPhieuPhatMouseClicked
 
     private void btnThongKeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThongKeMouseClicked
@@ -557,7 +563,7 @@ public class AdminPage extends javax.swing.JFrame {
         tttk.setVisible(false);
         bc.setVisible(true);
         qlnd.setVisible(false);
-        dkms.setVisible(false);
+        dsdk.setVisible(false);
     }//GEN-LAST:event_btnThongKeMouseClicked
 
     private void btnThongTinTKMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThongTinTKMouseClicked
@@ -578,7 +584,7 @@ public class AdminPage extends javax.swing.JFrame {
         tttk.setVisible(true);
         bc.setVisible(false);
         qlnd.setVisible(false);
-        dkms.setVisible(false);
+        dsdk.setVisible(false);
     }//GEN-LAST:event_btnThongTinTKMouseClicked
 
     /**

@@ -7,6 +7,7 @@ package GUI;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import login.CurrentUser;
 
 /**
  *
@@ -14,11 +15,17 @@ import javax.swing.JPanel;
  */
 public class ReaderPage extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ReaderPage
-     */
+    DKMuonSach dk = new DKMuonSach();
+    ThongTinTK tt = new ThongTinTK();
     public ReaderPage() {
         initComponents();
+        btnLogOut.setFocusPainted(false);
+        ReaderMain.add(dk);
+        ReaderMain.add(tt);
+        dk.setVisible(false);
+        tt.setVisible(false);
+        String maDG = CurrentUser.getInstance().getMaND(); 
+        jLabel2.setText(maDG);
     }
     public void setColor(JPanel jpanel) {
         Color color = new Color(51,102,0);
@@ -43,6 +50,9 @@ public class ReaderPage extends javax.swing.JFrame {
         btnLogOut = new javax.swing.JButton();
         btnSach = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        btnThongTinTK = new javax.swing.JPanel();
+        jLabel19 = new javax.swing.JLabel();
+        ReaderMain = new javax.swing.JLayeredPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,7 +65,7 @@ public class ReaderPage extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Độc giả");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(71, 84, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, -1, -1));
 
         btnLogOut.setBackground(new java.awt.Color(51, 153, 0));
         btnLogOut.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -98,17 +108,49 @@ public class ReaderPage extends javax.swing.JFrame {
 
         jPanel1.add(btnSach, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 115, -1, 40));
 
+        btnThongTinTK.setBackground(new java.awt.Color(51, 153, 0));
+        btnThongTinTK.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnThongTinTKMouseClicked(evt);
+            }
+        });
+
+        jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user (2).png"))); // NOI18N
+        jLabel19.setText("Thông tin tài khoản");
+
+        javax.swing.GroupLayout btnThongTinTKLayout = new javax.swing.GroupLayout(btnThongTinTK);
+        btnThongTinTK.setLayout(btnThongTinTKLayout);
+        btnThongTinTKLayout.setHorizontalGroup(
+            btnThongTinTKLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnThongTinTKLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel19)
+                .addContainerGap(34, Short.MAX_VALUE))
+        );
+        btnThongTinTKLayout.setVerticalGroup(
+            btnThongTinTKLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(btnThongTinTK, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 210, 40));
+
+        ReaderMain.setLayout(new java.awt.CardLayout());
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 829, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ReaderMain, javax.swing.GroupLayout.PREFERRED_SIZE, 830, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(ReaderMain, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -127,9 +169,18 @@ public class ReaderPage extends javax.swing.JFrame {
     private void btnSachMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSachMouseClicked
 
         setColor(btnSach);
+        DKMuonSach dk = new DKMuonSach();
+        dk.setVisible(true);
        
        
     }//GEN-LAST:event_btnSachMouseClicked
+
+    private void btnThongTinTKMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThongTinTKMouseClicked
+        setColor(btnThongTinTK);
+        ThongTinTK tt = new ThongTinTK();
+        tt.setVisible(true);
+        
+    }//GEN-LAST:event_btnThongTinTKMouseClicked
 
     /**
      * @param args the command line arguments
@@ -167,9 +218,12 @@ public class ReaderPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLayeredPane ReaderMain;
     private javax.swing.JButton btnLogOut;
     private javax.swing.JPanel btnSach;
+    private javax.swing.JPanel btnThongTinTK;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
