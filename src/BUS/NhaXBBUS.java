@@ -31,7 +31,7 @@ public class NhaXBBUS {
         List<NhaXB> nxbs = getAllNXB(); 
         for (NhaXB nxb : nxbs) {
             if (nxb.getMaNXB().equals(id)) {
-                return true; // ID exists
+                return true;
             }
         }
         return false; 
