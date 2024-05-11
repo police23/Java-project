@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author User
  */
-public class PhieuMuonDAO { // bổ sung thêm
+public class PhieuMuonDAO { // bổ sung thêm vô nha
     public List <PhieuMuon> getAllPhieuMuon() {
     }
     public void addPhieuMuon(PhieuMuon pm) {
