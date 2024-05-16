@@ -13,6 +13,7 @@ import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import login.CurrentUser;
 /**
  *
  * @author User
@@ -21,15 +22,18 @@ public class DSDKMuonSach extends javax.swing.JPanel {
      DKMuonBUS DKMuonBUS;
      DefaultTableModel dtmDSDK;
      DefaultTableModel dtmCTDK;
+     QLMuon qlpm;
+    
 
     /**
      * Creates new form DSDKMuonSach
      */
-    public DSDKMuonSach() {
+    public DSDKMuonSach(QLMuon qlpm) {
         initComponents();
         DKMuonBUS = new DKMuonBUS();
         dtmDSDK = new DefaultTableModel();
         dtmCTDK = new DefaultTableModel();
+        this.qlpm = qlpm;
         tableDSDK.setModel(dtmDSDK);
         tableCTDK.setModel(dtmCTDK);
         tableCTDK.setRowHeight(25);
@@ -104,7 +108,7 @@ public class DSDKMuonSach extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         tableCTDK = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnXacNhan = new javax.swing.JButton();
 
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jPanel9.setPreferredSize(new java.awt.Dimension(830, 550));
@@ -194,8 +198,13 @@ public class DSDKMuonSach extends javax.swing.JPanel {
                 .addGap(0, 3, Short.MAX_VALUE))
         );
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-confirm-26.png"))); // NOI18N
-        jButton1.setText("Xác nhận cho mượn sách");
+        btnXacNhan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-confirm-26.png"))); // NOI18N
+        btnXacNhan.setText("Xác nhận cho mượn sách");
+        btnXacNhan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXacNhanActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -210,7 +219,7 @@ public class DSDKMuonSach extends javax.swing.JPanel {
                         .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(38, 38, 38))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnXacNhan)
                         .addGap(162, 162, 162))))
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 829, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -224,7 +233,7 @@ public class DSDKMuonSach extends javax.swing.JPanel {
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnXacNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE))
@@ -273,12 +282,35 @@ public class DSDKMuonSach extends javax.swing.JPanel {
         updateTable();
     }//GEN-LAST:event_btnRefreshActionPerformed
 
+    private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
+        int row = tableDSDK.getSelectedRow();
+        if (row == -1) {    
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một dòng.");
+            return;
+    }
+        int confirm = JOptionPane.showConfirmDialog(this,"Bạn có muốn xác nhận cho mượn sách ? ");
+        if (confirm == JOptionPane.YES_OPTION) {
+            String MaDK = (String) dtmDSDK.getValueAt(row,0);
+            String MaTT = CurrentUser.getInstance().getMaND();
+            try {
+                DKMuonBUS.XacNhanChoMuon(MaDK, MaTT);
+                JOptionPane.showMessageDialog(this,"Xác nhận cho mượn sách thành công ");
+                updateTable();
+                qlpm.updateTable();
+                
+            }
+            catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_btnXacNhanActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ComboBox_Search;
     private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnTim;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnXacNhan;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel26;

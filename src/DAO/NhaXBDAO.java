@@ -45,7 +45,7 @@ public class NhaXBDAO {
 
     public void addNXB (NhaXB nxb) {
         Connection conn = JDBCConnection.getJDBCConnection();
-        String sql = "{call ThemNXB(?,?,?)}";
+        String sql = "{call THEMNXB_PROC(?,?,?)}";
         try {
             CallableStatement cst = conn.prepareCall(sql);
             //pst.setString(1,nxb.getMaNXB());
@@ -59,34 +59,21 @@ public class NhaXBDAO {
         catch (SQLException e) {
             e.printStackTrace();
         }
-        finally {
-            try {
-                if (conn != null) conn.close(); // Đóng kết nối
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
     }
     public void deleteNXB( String ID) {
         Connection conn = JDBCConnection.getJDBCConnection();
-        String sql = "{call XoaNXB(?)}";
+        String sql = "{call XOANXB_PROC(?)}";
         try (CallableStatement cst = conn.prepareCall(sql)) {
             cst.setString(1, ID); 
             int rs = cst.executeUpdate(); 
             System.out.println(rs);
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (conn != null) conn.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
         }
     }
     public void updateNXB(NhaXB nxb) {
         Connection conn = JDBCConnection.getJDBCConnection();
-        String sql = "{call CapNhatNXB(?, ?, ?, ?)}";
+        String sql = "{call CAPNHATNXB_PROC(?, ?, ?, ?)}";
         try (CallableStatement cst = conn.prepareCall(sql)) {
             cst.setString(1, nxb.getMaNXB());
             cst.setString(2, nxb.getTenNXB());
@@ -97,13 +84,6 @@ public class NhaXBDAO {
         }
         catch (SQLException e) {
             e.printStackTrace();
-        }
-         finally {
-            try {
-                if (conn != null) conn.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
         }
     }
     public List<NhaXB> searchNXBByID(String query) {
@@ -134,7 +114,7 @@ public class NhaXBDAO {
     String sql = "SELECT * FROM NHAXUATBAN WHERE TENNXB LIKE ?";
     try {
         PreparedStatement ps = conn.prepareStatement(sql);
-        String searchQuery = "%" + query + "%"; // The '%' is a wildcard character that matches any number of characters
+        String searchQuery = "%" + query + "%"; 
         ps.setString(1, searchQuery);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
@@ -156,7 +136,7 @@ public class NhaXBDAO {
     String sql = "SELECT * FROM NHAXUATBAN WHERE DIACHI LIKE ?";
     try {
         PreparedStatement ps = conn.prepareStatement(sql);
-        String searchQuery = "%" + query + "%"; // The '%' is a wildcard character that matches any number of characters
+        String searchQuery = "%" + query + "%"; 
         ps.setString(1, searchQuery);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
@@ -178,7 +158,7 @@ public class NhaXBDAO {
     String sql = "SELECT * FROM NHAXUATBAN WHERE SODT LIKE ?";
     try {
         PreparedStatement ps = conn.prepareStatement(sql);
-        String searchQuery = "%" + query + "%"; // The '%' is a wildcard character that matches any number of characters
+        String searchQuery = "%" + query + "%"; 
         ps.setString(1, searchQuery);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {

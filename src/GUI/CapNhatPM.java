@@ -10,49 +10,42 @@ import DTO.PhieuMuon;
 import DTO.PhieuMuon.CTPhieuMuon;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author User
  */
-public class CTMuon extends javax.swing.JFrame {
+public class CapNhatPM extends javax.swing.JFrame {
     PhieuMuonBUS PhieuMuonBUS;
     PhieuMuon pm;
     Connection conn;
     QLMuon qlpm;
-    
-            
 
     /**
      * Creates new form CapNhatPM
      */
-    public CTMuon(PhieuMuon pm, QLMuon qlm) {
+    public CapNhatPM(PhieuMuon pm, QLMuon qlm) {
         initComponents();
+        this.qlpm = qlm;
+        this.pm = pm;
         labelMaPM.setText(pm.getMaPM());
         labelNguoiMuon.setText(pm.getMaDG());
         labelNguoiTao.setText(pm.getMaTT());
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String NgayMuon = dateFormat.format(pm.getNgayLap());
         labelNgayMuon.setText(NgayMuon);
-        String HanTra = dateFormat.format(pm.getHanTra());
-        labelHanTra.setText(HanTra);
+        Date_HanTra.setDate(pm.getHanTra());
         PhieuMuonDAO PhieuMuonDAO = new PhieuMuonDAO();
         List<CTPhieuMuon> ct = PhieuMuonDAO.getCTPM(pm.getMaPM());
         DefaultTableModel model = (DefaultTableModel) tableCTPM.getModel();
         model.setRowCount(0);
         tableCTPM.setRowHeight(30);
         for (CTPhieuMuon c : ct) {
-            if (c.getMaTrangThai() == 0) {
-             model.addRow(new Object[]{c.getMaSach(), c.getTenSach(), "Đang mượn"});
-    }
-            else if (c.getMaTrangThai() == 1) {
-             model.addRow(new Object[]{c.getMaSach(), c.getTenSach(), "Đã trả"});
-            }
-            else {
-             model.addRow(new Object[]{c.getMaSach(), c.getTenSach(), "Làm mất/ hư hỏng"});
-            }
+            model.addRow(new Object[]{c.getMaSach(), c.getTenSach()});
     }
     }
 
@@ -67,7 +60,11 @@ public class CTMuon extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tableCTPM = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         labelMaPM = new javax.swing.JLabel();
@@ -75,12 +72,9 @@ public class CTMuon extends javax.swing.JFrame {
         labelNguoiTao = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         labelNgayMuon = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        labelHanTra = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        tableCTPM = new javax.swing.JTable();
-        btnDong1 = new javax.swing.JButton();
+        Date_HanTra = new com.toedter.calendar.JDateChooser();
+        btnOK = new javax.swing.JButton();
+        btnHuy = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,14 +82,14 @@ public class CTMuon extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("CHI TIẾT PHIẾU MƯỢN");
+        jLabel1.setText("GIA HẠN TRẢ SÁCH");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(165, 165, 165)
+                .addGap(185, 185, 185)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -107,8 +101,25 @@ public class CTMuon extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel10.setText("Hạn trả :");
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel12.setText("Các sách mượn :");
+
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("Mã phiếu mượn :");
+
+        tableCTPM.setAutoCreateRowSorter(true);
+        tableCTPM.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Mã sách", "Tên sách"
+            }
+        ));
+        jScrollPane6.setViewportView(tableCTPM);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("Người tạo phiếu :");
@@ -131,34 +142,19 @@ public class CTMuon extends javax.swing.JFrame {
         labelNgayMuon.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelNgayMuon.setText("jLabel5");
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel10.setText("Hạn trả :");
-
-        labelHanTra.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        labelHanTra.setText("jLabel5");
-
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel12.setText("Các sách mượn :");
-
-        tableCTPM.setAutoCreateRowSorter(true);
-        tableCTPM.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Mã sách", "Tên sách", "Trạng thái"
-            }
-        ));
-        jScrollPane6.setViewportView(tableCTPM);
-
-        btnDong1.setBackground(new java.awt.Color(255, 51, 0));
-        btnDong1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnDong1.setForeground(new java.awt.Color(255, 255, 255));
-        btnDong1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-cancel-24.png"))); // NOI18N
-        btnDong1.setText("Đóng");
-        btnDong1.addActionListener(new java.awt.event.ActionListener() {
+        btnOK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-ok-24.png"))); // NOI18N
+        btnOK.setText("OK");
+        btnOK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDong1ActionPerformed(evt);
+                btnOKActionPerformed(evt);
+            }
+        });
+
+        btnHuy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-cancel-24.png"))); // NOI18N
+        btnHuy.setText("Hủy");
+        btnHuy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHuyActionPerformed(evt);
             }
         });
 
@@ -168,55 +164,67 @@ public class CTMuon extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
+                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel12)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(18, 18, 18)
-                                .addComponent(labelNguoiTao))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel4))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelMaPM)
-                                    .addComponent(labelNguoiMuon))
-                                .addGap(163, 163, 163)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel8)
-                                        .addGap(29, 29, 29)
-                                        .addComponent(labelNgayMuon))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel10)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(labelHanTra))))
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 523, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(labelNguoiTao)))
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(230, 230, 230)
-                        .addComponent(btnDong1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(73, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelMaPM)
+                            .addComponent(labelNguoiMuon))
+                        .addGap(134, 134, 134)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel10))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(labelNgayMuon)
+                                .addContainerGap(128, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(7, 7, 7)
+                                .addComponent(Date_HanTra, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(71, 71, 71)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(152, 152, 152)
+                        .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(99, 99, 99)
+                        .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(labelMaPM)
-                    .addComponent(jLabel8)
-                    .addComponent(labelNgayMuon))
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(labelNguoiMuon)
-                    .addComponent(jLabel10)
-                    .addComponent(labelHanTra))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(labelMaPM)
+                            .addComponent(jLabel8)
+                            .addComponent(labelNgayMuon))
+                        .addGap(31, 31, 31)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(labelNguoiMuon)
+                            .addComponent(jLabel10)))
+                    .addComponent(Date_HanTra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -226,16 +234,48 @@ public class CTMuon extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnDong1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 20, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnDong1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDong1ActionPerformed
+    private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
+        String noti = "";
+        Date today = new Date();
+        
+        if (Date_HanTra.getDate().before(today)) {
+            noti += "Ngày trả sách phải là ngày ở tương lai\n";
+        }
+        /*else {
+            long diffinmillies = Math.abs(Date_HanTra.getDate().getTime() - today.getTime());
+            long diffdays = TimeUnit.DAYS.convert(diffinmillies,TimeUnit.MILLISECONDS);
+            if (diffdays > 14) {
+                noti += "Chỉ được mượn tối đa 14 ngày\n";
+            }
+        }*/
+
+        if (!noti.isEmpty()) {
+            JOptionPane.showMessageDialog(null,noti);
+        }
+        else {
+            pm.setHanTra(new java.sql.Date(Date_HanTra.getDate().getTime()));
+            PhieuMuonDAO pmDAO = new PhieuMuonDAO();
+            pmDAO.updatePhieuMuon(pm);
+            JOptionPane.showMessageDialog(null,"Gia hạn trả sách thành công");
+            qlpm.updateTable();
+            this.dispose();
+
+        }
+
+    }//GEN-LAST:event_btnOKActionPerformed
+
+    private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
         this.dispose();
-    }//GEN-LAST:event_btnDong1ActionPerformed
+    }//GEN-LAST:event_btnHuyActionPerformed
 
     /**
      * @param args the command line arguments
@@ -254,23 +294,24 @@ public class CTMuon extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CTMuon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CapNhatPM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CTMuon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CapNhatPM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CTMuon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CapNhatPM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CTMuon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CapNhatPM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
-       
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnDong1;
+    private com.toedter.calendar.JDateChooser Date_HanTra;
+    private javax.swing.JButton btnHuy;
+    private javax.swing.JButton btnOK;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
@@ -280,7 +321,6 @@ public class CTMuon extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JLabel labelHanTra;
     private javax.swing.JLabel labelMaPM;
     private javax.swing.JLabel labelNgayMuon;
     private javax.swing.JLabel labelNguoiMuon;

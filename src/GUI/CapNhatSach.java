@@ -434,7 +434,7 @@ public class CapNhatSach extends javax.swing.JFrame {
             upbk.setMoTa(txtMoTa.getText());
             upbk.setMaTheLoai(maTheLoai);
             upbk.setMaNXB(maNXB);
-            BookBUS.addBook(upbk);
+            BookBUS.updateBook(upbk);
             qls.updateTable();
     }
          this.dispose(); 

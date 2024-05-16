@@ -59,7 +59,9 @@ public class BookDAO {
                  "FROM SACH S " +
                  "JOIN THELOAI T ON S.MATHELOAI = T.MATHELOAI " +
                  "JOIN NHAXUATBAN N ON S.MANXB = N.MANXB " +
-                 "WHERE S.SOLUONG > 0";
+                 "WHERE S.SOLUONG > 0 " +
+                 "ORDER BY S.MASACH ASC";
+                
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -91,7 +93,7 @@ public class BookDAO {
 
     public void addBook (Book bo) {
         Connection conn = JDBCConnection.getJDBCConnection();
-        String sql = "{call ThemSach(?,?,?,?,?,?,?,?,?,?)}";
+        String sql = "{call THEMSACH_PROC(?,?,?,?,?,?,?,?,?,?)}";
         try {
             CallableStatement cst = conn.prepareCall(sql);
             cst.setString(1,bo.getMaSach());
@@ -119,7 +121,7 @@ public class BookDAO {
     }
     public void deleteBook( String ID) {
         Connection conn = JDBCConnection.getJDBCConnection();
-        String sql = "{call XoaSach(?)}";
+        String sql = "{call XOASACH_PROC(?)}";
         try (CallableStatement cst = conn.prepareCall(sql)) {
             cst.setString(1, ID); 
             int rs = cst.executeUpdate(); 
@@ -136,7 +138,7 @@ public class BookDAO {
 }
     public void updateBook(Book bo) {
         Connection conn = JDBCConnection.getJDBCConnection();
-        String sql = "{call CapNhatSach(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}"; // Gọi stored procedure
+        String sql = "{call CAPNHATSACH_PROC(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}"; // Gọi stored procedure
         try (CallableStatement cst = conn.prepareCall(sql)) {
             cst.setString(1, bo.getMaSach());
             cst.setString(2, bo.getTenSach());
@@ -152,13 +154,6 @@ public class BookDAO {
             System.out.println(rs);
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
-            try {
-                if (conn != null) conn.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
         }
     }
     

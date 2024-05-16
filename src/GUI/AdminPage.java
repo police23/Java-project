@@ -21,7 +21,7 @@ public class AdminPage extends javax.swing.JFrame {
         ThongTinTK tttk = new ThongTinTK();
         BaoCaoTK bc = new BaoCaoTK();
         QLNguoiDung qlnd = new QLNguoiDung();
-        DSDKMuonSach dsdk = new DSDKMuonSach();
+        DSDKMuonSach dsdk = new DSDKMuonSach(qlm);
         
 
     /**

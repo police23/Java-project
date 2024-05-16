@@ -6,7 +6,9 @@ package BUS;
 
 import DAO.PhieuMuonDAO;
 import DTO.PhieuMuon;
+import DTO.PhieuMuon.CTPhieuMuon;
 import java.util.List;
+import java.sql.*;
 
 /**
  *
@@ -21,19 +23,25 @@ public class PhieuMuonBUS {
     public List <PhieuMuon> getAllPhieuMuon() {
         return PhieuMuonDAO.getAllPhieuMuon();
     }
-    public void addPhieuMuon(PhieuMuon pm) {
-        PhieuMuonDAO.addPhieuMuon(pm);
+    public void addPhieuMuon(PhieuMuon pm, String[] maSachArray) {
+        PhieuMuonDAO.addPhieuMuon(pm, maSachArray);
     }
-    public void deletePhieuMuon(String ID) {
-        PhieuMuonDAO.deletePhieuMuon(ID);
+    public void deletePhieuMuon(String maPM) throws SQLException {
+        PhieuMuonDAO.deletePhieuMuon(maPM);
     }
     public void updatePhieuMuon(PhieuMuon pm) {
         PhieuMuonDAO.updatePhieuMuon(pm);
     }
-    public List <PhieuMuon> searchPhieuMuonByID() {
-        return PhieuMuonDAO.searchPhieuMuonByID();
+    public PhieuMuon getPhieuMuonByID(String ID) {
+        return PhieuMuonDAO.getPhieuMuonByID(ID);
     }
-    public List <PhieuMuon> searchPhieuMuonByMaDG() {
-        return PhieuMuonDAO.searchPhieuMuonByMaDG();
+    public List <CTPhieuMuon> getCTPM(String maPM) {
+        return PhieuMuonDAO.getCTPM(maPM);
+    }
+    public List <PhieuMuon> searchPhieuMuonByID(String query) {
+        return PhieuMuonDAO.searchPhieuMuonByID(query);
+    }
+    public List <PhieuMuon> searchPhieuMuonByMaDG(String query) {
+        return PhieuMuonDAO.searchPhieuMuonByMaDG(query);
     }
 }

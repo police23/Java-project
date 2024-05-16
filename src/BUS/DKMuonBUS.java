@@ -15,33 +15,35 @@ import java.util.List;
  * @author User
  */
 public class DKMuonBUS {
-    private DKMuonDAO dkMuonDAO;
+    private DKMuonDAO DKMuonDAO;
 
     public DKMuonBUS() {
-        dkMuonDAO = new DKMuonDAO();
+        DKMuonDAO = new DKMuonDAO();
     }
     public List<DKMuon> getDSDK() throws SQLException {
-        return dkMuonDAO.getDSDK();
+        return DKMuonDAO.getDSDK();
     }
 
     public void addDK(DKMuon dkMuon, String[] maSachArray) throws SQLException {
-        dkMuonDAO.addDK(dkMuon, maSachArray);
+        DKMuonDAO.addDK(dkMuon, maSachArray);
     }
     public void deleteDK(String maDG, String[] maSachArray) throws SQLException { 
-        dkMuonDAO.HuyDK(maDG, maSachArray);
+        DKMuonDAO.HuyDK(maDG, maSachArray);
+    }
+    public void XacNhanChoMuon(String MaDK, String MaTT) throws SQLException {
+        DKMuonDAO.XacNhanChoMuon(MaDK, MaTT);
     }
     public List<Book> getSachDaDK(DKMuon dkMuon) throws SQLException {
-        return dkMuonDAO.getSachDaDK(dkMuon);
-}
+        return DKMuonDAO.getSachDaDK(dkMuon);
+    }
     public List <DKMuon> searchDSByID(String query) throws SQLException {
-        return dkMuonDAO.searchDSByID(query);
+        return DKMuonDAO.searchDSByID(query);
     }
     public List <DKMuon> searchDSByMaDG(String query) throws SQLException {
-        return dkMuonDAO.searchDSByMaDG(query);
-    
+        return DKMuonDAO.searchDSByMaDG(query);
 }
     public List <DKMuon> searchDSByTenDG(String query) throws SQLException {
-        return dkMuonDAO.searchDSByTenDG(query);
+        return DKMuonDAO.searchDSByTenDG(query);
     
 }
 }

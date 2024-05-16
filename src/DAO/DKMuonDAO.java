@@ -67,6 +67,18 @@ public class DKMuonDAO {
             throw e; 
         }
     }
+    public void XacNhanChoMuon(String MaDK, String MaTT) throws SQLException {
+        Connection conn = JDBCConnection.getJDBCConnection();
+        String sql = "{call XACNHANCHOMUON_PROC(?, ?)}";
+        try (CallableStatement cs = conn.prepareCall(sql)) {
+            cs.setString(1, MaDK);
+            cs.setString(2, MaTT); // Thiết lập tham số MATHUTHU
+            cs.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+        throw e;
+    }
+    }
     public List<Book> getSachDaDK(DKMuon dkmuon) throws SQLException {
     List<Book> sachDaDK = new ArrayList<>();
     Connection conn = null;

@@ -5,6 +5,7 @@
 package DTO;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -13,31 +14,24 @@ import java.util.Date;
 public class PhieuMuon {
     private String MaPM;
     private String MaTT;
-    private String HoTenTT;
     private String MaDG;
     private String HoTenDG;
     private Date NgayLap;
     private Date HanTra;
-    private String MaSach;
-    private String TenSach;
-    private int MaTrangThai;
-    private String TrangThai;
+    private List <CTPhieuMuon> dsSachMuon;
 
     public PhieuMuon() {
     }
 
-    public PhieuMuon(String MaPM, String MaTT, String HoTenTT, String MaDG, String HoTenDG, Date NgayLap, Date HanTra, String MaSach, String TenSach, int MaTrangThai, String TrangThai) {
+    public PhieuMuon(String MaPM, String MaTT, String MaDG, String HoTenDG, Date NgayLap, Date HanTra, List <CTPhieuMuon> dsSachMuon) {
         this.MaPM = MaPM;
         this.MaTT = MaTT;
-        this.HoTenTT = HoTenTT;
         this.MaDG = MaDG;
         this.HoTenDG = HoTenDG;
         this.NgayLap = NgayLap;
         this.HanTra = HanTra;
-        this.MaSach = MaSach;
-        this.TenSach = TenSach;
-        this.MaTrangThai = MaTrangThai;
-        this.TrangThai = TrangThai;
+        this.dsSachMuon = dsSachMuon;
+      
     }
 
     public String getMaPM() {
@@ -56,13 +50,6 @@ public class PhieuMuon {
         this.MaTT = MaTT;
     }
 
-    public String getHoTenTT() {
-        return HoTenTT;
-    }
-
-    public void setHoTenTT(String HoTenTT) {
-        this.HoTenTT = HoTenTT;
-    }
 
     public String getMaDG() {
         return MaDG;
@@ -95,6 +82,21 @@ public class PhieuMuon {
     public void setHanTra(Date HanTra) {
         this.HanTra = HanTra;
     }
+public static class CTPhieuMuon {
+    private String MaSach;
+    private String TenSach;
+    private int MaTrangThai;
+    //private String TrangThai;
+
+    public CTPhieuMuon() {
+    }
+
+    public CTPhieuMuon(String MaSach, String TenSach, int MaTrangThai) {
+        this.MaSach = MaSach;
+        this.TenSach = TenSach;
+        this.MaTrangThai = MaTrangThai;
+       
+    }
 
     public String getMaSach() {
         return MaSach;
@@ -120,14 +122,18 @@ public class PhieuMuon {
         this.MaTrangThai = MaTrangThai;
     }
 
-    public String getTrangThai() {
-        return TrangThai;
-    }
+    //public String getTrangThai() {
+      //  return TrangThai;
+    //}
 
-    public void setTrangThai(String TrangThai) {
-        this.TrangThai = TrangThai;
-    }
+    //public void setTrangThai(String TrangThai) {
+      //  this.TrangThai = TrangThai;
+    //}
+    
+
     
     
+    
+}
 }
 

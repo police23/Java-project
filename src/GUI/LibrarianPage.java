@@ -21,7 +21,7 @@ public class LibrarianPage extends javax.swing.JFrame {
         QLPhat qlp = new QLPhat();
         ThongTinTK tttk = new ThongTinTK();
         BaoCaoTK bc = new BaoCaoTK();
-        DSDKMuonSach dsdk = new DSDKMuonSach();
+        DSDKMuonSach dsdk = new DSDKMuonSach(qlm);
         
         
 

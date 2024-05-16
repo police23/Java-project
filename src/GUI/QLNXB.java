@@ -275,7 +275,7 @@ public class QLNXB extends javax.swing.JPanel {
         else if (ComboBox_Tim.getSelectedIndex() == 3) {
             searchResults = NXBBUS.searchNXBByPhone(query);}
 
-    // Clear the table and add the search results
+   
     
     if (searchResults != null && !searchResults.isEmpty()) {
         dtm.setRowCount(0);

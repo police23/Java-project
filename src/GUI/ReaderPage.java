@@ -169,6 +169,7 @@ public class ReaderPage extends javax.swing.JFrame {
     private void btnSachMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSachMouseClicked
 
         setColor(btnSach);
+        resetColor(btnThongTinTK);
         DKMuonSach dk = new DKMuonSach();
         dk.setVisible(true);
        
@@ -177,6 +178,7 @@ public class ReaderPage extends javax.swing.JFrame {
 
     private void btnThongTinTKMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThongTinTKMouseClicked
         setColor(btnThongTinTK);
+        resetColor(btnSach);
         ThongTinTK tt = new ThongTinTK();
         tt.setVisible(true);
         
