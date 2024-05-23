@@ -17,7 +17,7 @@ import java.util.List;
 import java.sql.*;
 import oracle.sql.ARRAY;
 import oracle.sql.ArrayDescriptor;
-
+import java.sql.Date;
 /**
  *
  * @author User
@@ -191,8 +191,28 @@ public class PhieuMuonDAO {
             }
         return ds;
     }
+    
+    public Date getHanTraBy(String maSach, String maDG) {
+        Connection conn = JDBCConnection.getJDBCConnection();
+        CallableStatement cstmt = null;
+        Date hantra = null;
+    try {
+        String SQL = "{? = call GET_HANTRA_FUNC(?,?)}";
+        cstmt = conn.prepareCall(SQL);
+        cstmt.registerOutParameter(1, Types.DATE);
+        cstmt.setString(2, maSach);
+        cstmt.setString(3, maDG);
+        cstmt.execute();
+        hantra = cstmt.getDate(1);
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    } 
+     
+     return hantra;
     }
-        
+    
+}
+  
    /* public List <PhieuMuon> searchPhieuMuonByID(String maPM) {
          List<PhieuMuon> list = new ArrayList<PhieuMuon>();
          Connection conn = JDBCConnection.getJDBCConnection();
