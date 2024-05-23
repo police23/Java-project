@@ -4,6 +4,15 @@
  */
 package GUI;
 
+import BUS.PhieuMuonBUS;
+import BUS.PhieuTraBUS;
+import DTO.PhieuMuon;
+import DTO.PhieuTra;
+import java.sql.SQLException;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author User
@@ -13,8 +22,36 @@ public class QLTra extends javax.swing.JPanel {
     /**
      * Creates new form QLTra
      */
+    PhieuTraBUS PhieuTraBUS;
+    DefaultTableModel dtm;
+
+    /**
+     * Creates new form QLMuon
+     */
     public QLTra() {
         initComponents();
+        PhieuTraBUS = new PhieuTraBUS();
+        dtm = new DefaultTableModel();
+        tablePhieuTra.setModel(dtm);
+        dtm.addColumn("Mã phiếu trả");
+        dtm.addColumn("Mã độc giả");
+        dtm.addColumn("Ngày trả");
+        updateTable();
+        LoadSearchBy();
+    }
+    public void updateTable() {
+        dtm.setRowCount(0);
+        List <PhieuTra> pts = PhieuTraBUS.getAllPhieuTra();
+        pts.sort((PhieuTra p1, PhieuTra p2) -> p1.getMaPT().compareTo(p2.getMaPT()));
+        for (PhieuTra p : pts) {
+            dtm.addRow(new Object[] {p.getMaPT(), p.getMaDG(), p.getNgayTra()}); 
+        }
+        this.tablePhieuTra.setRowHeight(30);
+    }
+    public void LoadSearchBy() {
+        ComboBox_Search.removeAllItems();
+        ComboBox_Search.addItem("Mã phiếu trả");
+        ComboBox_Search.addItem("Mã độc giả");
     }
 
     /**
@@ -38,7 +75,7 @@ public class QLTra extends javax.swing.JPanel {
         btnRefresh = new javax.swing.JButton();
         txtTim = new javax.swing.JTextField();
         jScrollPane5 = new javax.swing.JScrollPane();
-        tableSach = new javax.swing.JTable();
+        tablePhieuTra = new javax.swing.JTable();
 
         setPreferredSize(new java.awt.Dimension(850, 515));
 
@@ -147,7 +184,7 @@ public class QLTra extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        tableSach.setModel(new javax.swing.table.DefaultTableModel(
+        tablePhieuTra.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -156,14 +193,14 @@ public class QLTra extends javax.swing.JPanel {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, true, true, true, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane5.setViewportView(tableSach);
+        jScrollPane5.setViewportView(tablePhieuTra);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -197,11 +234,26 @@ public class QLTra extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemSachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemSachActionPerformed
-        
+        ThemPT pt = new ThemPT(this);
+        pt.setLocationRelativeTo(null);
+        pt.setVisible(true);
     }//GEN-LAST:event_btnThemSachActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-       
+       int row = tablePhieuTra.getSelectedRow();
+        if (row == -1) {    
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn phiếu trả để xóa.");
+            return;
+    }
+        int confirm = JOptionPane.showConfirmDialog(this,"Bạn có chắc xóa phiếu trả này không ? ");
+        if (confirm == JOptionPane.YES_OPTION) {
+           
+            String maPT = tablePhieuTra.getValueAt(row, 0).toString();
+            PhieuTraBUS.deletePhieuTra(maPT);
+            updateTable();
+        } 
+            
+
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
@@ -209,15 +261,46 @@ public class QLTra extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnCTSachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCTSachActionPerformed
-        
+        int selectedRow = tablePhieuTra.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Chưa chọn dòng để xem chi tiết", "Thông báo", JOptionPane.WARNING_MESSAGE);}
+        else {
+            String selectedMaPT = (String) dtm.getValueAt(selectedRow, 0);
+            PhieuTra pt = PhieuTraBUS.getPhieuTraByID(selectedMaPT);
+            CTTra ct = new CTTra(pt,this);
+            ct.setLocationRelativeTo(null);
+            ct.setVisible(true);
+        }
     }//GEN-LAST:event_btnCTSachActionPerformed
 
     private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
-       
+       String query = txtTim.getText();
+        List <PhieuTra> searchResults = null;
+        if (ComboBox_Search.getSelectedIndex() == 0) {
+            System.out.println("DANG TIM THEO ID");
+            searchResults = PhieuTraBUS.searchPhieuTraByID(query);}
+        else if (ComboBox_Search.getSelectedIndex() == 1) {
+            System.out.println("DANG TIM THEO MADG");
+            searchResults = PhieuTraBUS.searchPhieuTraByMaDG(query);}
+        System.out.println(searchResults);
+        for (PhieuTra pt : searchResults) {
+            System.out.println("MaPT: " + pt.getMaPT());
+            System.out.println("MaDG: " + pt.getMaDG());
+            
+        }
+        if (searchResults != null && !searchResults.isEmpty()) {
+            dtm.setRowCount(0);
+            for (PhieuTra pt : searchResults) {
+                dtm.addRow(new Object[] {pt.getMaPT(), pt.getMaDG(), pt.getNgayTra()});
+        }
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "Không tìm thấy dữ liệu", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_btnTimActionPerformed
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
-        
+        updateTable();
     }//GEN-LAST:event_btnRefreshActionPerformed
 
 
@@ -233,7 +316,7 @@ public class QLTra extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel26;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTable tableSach;
+    private javax.swing.JTable tablePhieuTra;
     private javax.swing.JTextField txtTim;
     // End of variables declaration//GEN-END:variables
 }

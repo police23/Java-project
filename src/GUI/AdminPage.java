@@ -5,6 +5,7 @@
 package GUI;
 
 import java.awt.Color;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -18,16 +19,18 @@ public class AdminPage extends javax.swing.JFrame {
         QLMuon qlm = new QLMuon();
         QLTra qlt = new QLTra();
         QLPhat qlp = new QLPhat();
-        ThongTinTK tttk = new ThongTinTK();
+        ThongTinTK tttk;
         BaoCaoTK bc = new BaoCaoTK();
-        QLNguoiDung qlnd = new QLNguoiDung();
+        QLNguoiDung qltk = new QLNguoiDung();
         DSDKMuonSach dsdk = new DSDKMuonSach(qlm);
         
 
     /**
      * Creates new form AdminPage
+     * @throws java.sql.SQLException
      */
-    public AdminPage() {
+    public AdminPage() throws SQLException {
+        this.tttk = new ThongTinTK();
         initComponents();
         btnLogOut.setFocusPainted(false);
         LibrarianMain.add(qls);
@@ -38,6 +41,7 @@ public class AdminPage extends javax.swing.JFrame {
         LibrarianMain.add(tttk);
         LibrarianMain.add(bc);
         LibrarianMain.add(dsdk);
+        LibrarianMain.add(qltk);
         qls.setVisible(false);
         qlxb.setVisible(false);
         qlm.setVisible(false);
@@ -45,7 +49,7 @@ public class AdminPage extends javax.swing.JFrame {
         qlp.setVisible(false);
         tttk.setVisible(false);
         bc.setVisible(false);
-        qlnd.setVisible(false);
+        qltk.setVisible(false);
         dsdk.setVisible(false);
     }
     public void setColor(JPanel jpanel) {
@@ -396,7 +400,7 @@ public class AdminPage extends javax.swing.JFrame {
         qlp.setVisible(false);
         tttk.setVisible(false);
         bc.setVisible(false);
-        qlnd.setVisible(false);
+        qltk.setVisible(false);
         dsdk.setVisible(false);
 
     }//GEN-LAST:event_btnQLSachMouseClicked
@@ -419,7 +423,7 @@ public class AdminPage extends javax.swing.JFrame {
         qlp.setVisible(false);
         tttk.setVisible(false);
         bc.setVisible(false);
-        qlnd.setVisible(false);
+        qltk.setVisible(false);
         dsdk.setVisible(false);
     }//GEN-LAST:event_btnQLNXBMouseClicked
 
@@ -441,7 +445,7 @@ public class AdminPage extends javax.swing.JFrame {
         qlp.setVisible(false);
         tttk.setVisible(false);
         bc.setVisible(false);
-        qlnd.setVisible(false);
+        qltk.setVisible(false);
         dsdk.setVisible(false);
 
     }//GEN-LAST:event_btnDSPhieuTraMouseClicked
@@ -474,7 +478,7 @@ public class AdminPage extends javax.swing.JFrame {
         qlp.setVisible(false);
         tttk.setVisible(false);
         bc.setVisible(false);
-        qlnd.setVisible(false);
+        qltk.setVisible(false);
         dsdk.setVisible(false);
     }//GEN-LAST:event_btnDSPhieuMuonMouseClicked
 
@@ -496,12 +500,13 @@ public class AdminPage extends javax.swing.JFrame {
         qlp.setVisible(false);
         tttk.setVisible(false);
         bc.setVisible(false);
-        qlnd.setVisible(false);
+        qltk.setVisible(false);
         dsdk.setVisible(true);
     }//GEN-LAST:event_btnDSDangKyMouseClicked
 
     private void btnQLNguoiDungMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQLNguoiDungMouseClicked
 
+        System.out.println("CLICK ROI NE");
         setColor(btnQLNguoiDung);
         resetColor(btnQLNXB);
         resetColor(btnDSPhieuMuon);
@@ -518,7 +523,7 @@ public class AdminPage extends javax.swing.JFrame {
         qlp.setVisible(false);
         tttk.setVisible(false);
         bc.setVisible(false);
-        qlnd.setVisible(true);
+        qltk.setVisible(true);
         dsdk.setVisible(false);
     }//GEN-LAST:event_btnQLNguoiDungMouseClicked
 
@@ -540,7 +545,7 @@ public class AdminPage extends javax.swing.JFrame {
         qlp.setVisible(true);
         tttk.setVisible(false);
         bc.setVisible(false);
-        qlnd.setVisible(false);
+        qltk.setVisible(false);
         dsdk.setVisible(false);
     }//GEN-LAST:event_btnDSPhieuPhatMouseClicked
 
@@ -562,7 +567,7 @@ public class AdminPage extends javax.swing.JFrame {
         qlp.setVisible(false);
         tttk.setVisible(false);
         bc.setVisible(true);
-        qlnd.setVisible(false);
+        qltk.setVisible(false);
         dsdk.setVisible(false);
     }//GEN-LAST:event_btnThongKeMouseClicked
 
@@ -583,7 +588,7 @@ public class AdminPage extends javax.swing.JFrame {
         qlp.setVisible(false);
         tttk.setVisible(true);
         bc.setVisible(false);
-        qlnd.setVisible(false);
+        qltk.setVisible(false);
         dsdk.setVisible(false);
     }//GEN-LAST:event_btnThongTinTKMouseClicked
 
@@ -615,11 +620,11 @@ public class AdminPage extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AdminPage().setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new AdminPage().setVisible(true);
+//            }
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

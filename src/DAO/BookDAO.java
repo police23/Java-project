@@ -89,7 +89,44 @@ public class BookDAO {
         return books;
     }
     
-    
+    public List <Book> getBorrowedBooksByMaDG(String maDG) {
+        List <Book> books = new ArrayList<Book>();
+        Connection conn = JDBCConnection.getJDBCConnection();
+          String sql = "SELECT SACH.MASACH, SACH.TENSACH, SACH.TACGIA, SACH.NAMXB, SACH.SOTRANG, SACH.GIA "
+                   + "FROM CTPHIEUMUON "
+                   + "JOIN PHIEUMUON ON CTPHIEUMUON.MAPHIEUMUON = PHIEUMUON.MAPHIEUMUON "
+                   + "JOIN SACH ON CTPHIEUMUON.MASACH = SACH.MASACH "
+                   + "WHERE PHIEUMUON.MADOCGIA = ? AND TRANGTHAI = 0";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, maDG);
+            ResultSet rs = ps.executeQuery();
+            try (rs) {
+                while (rs.next()) {
+                    Book bo = new Book();
+                    bo.setMaSach(rs.getString("MASACH"));
+                    bo.setTenSach(rs.getString("TENSACH"));
+                    bo.setTacGia(rs.getString("TACGIA"));
+//                    bo.setMaTheLoai(rs.getString("MATHELOAI"));
+//                    bo.setMaNXB(rs.getString("MANXB"));
+    //                bo.setNXB(rs.getString("TENNXB"));
+                    bo.setNamXB(rs.getInt("NAMXB"));
+                    bo.setSoTrang(rs.getInt("SOTRANG"));
+//                    bo.setSoLuong(rs.getInt("SOLUONG"));
+                    bo.setGia(rs.getInt("GIA"));
+//                    bo.setMoTa(rs.getString("MOTA"));
+                    books.add(bo);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        }
+        return books;
+    }
 
     public void addBook (Book bo) {
         Connection conn = JDBCConnection.getJDBCConnection();
