@@ -4,6 +4,26 @@
  */
 package GUI;
 
+import BUS.BaoCaoTKBUS;
+import DTO.BaoCaoTK.LuotMuonSachTheoThangVaTheLoaiDTO;
+import DTO.BaoCaoTK.Top5SachCoNhieuLuotMuonDTO;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.List;
 /**
  *
  * @author User
@@ -13,10 +33,62 @@ public class BaoCaoTK extends javax.swing.JPanel {
     /**
      * Creates new form BaoCaoTK
      */
+    BaoCaoTKBUS BaoCaoTKBUS;
+    DefaultTableModel Dtm;
+    DefaultTableModel Dtm1;
+    
     public BaoCaoTK() {
         initComponents();
+        // Khoi tao table
+
+        BaoCaoTKBUS= new BaoCaoTKBUS();
+        Dtm = new DefaultTableModel();
+        jTable2.setModel(Dtm);
+        Dtm.addColumn("Mã thể loại");
+        Dtm.addColumn("Tên thể loại");
+        Dtm.addColumn("Số lượt mượn");
+        LoadThang();
+        
+        Dtm1 = new DefaultTableModel();
+        jTable3.setModel(Dtm1);
+        Dtm1.addColumn("Mã sách");
+        Dtm1.addColumn("Tên sách");
+        Dtm1.addColumn("Số lượt mượn");
+        LoadMonth();
+    }
+    // Dua du lieu Thang vao trong combobox
+    public void LoadThang() {
+        cbb_Thang.removeAllItems();
+        for (int i = 1; i <= 12; i++) {
+            cbb_Thang.addItem("Tháng " + i);
+        }
     }
 
+    public void LoadMonth() {
+        cbb_Month.removeAllItems();
+        for (int i = 1; i <= 12; i++) {
+            cbb_Month.addItem("Tháng " + i);
+        }
+    }
+
+    // Dua du lieu vao table
+    private void loadDataToTable(JTable table, List<?> data) {
+    DefaultTableModel model = (DefaultTableModel) table.getModel();
+    model.setRowCount(0);
+
+    for (Object obj : data) {
+        if (obj instanceof Top5SachCoNhieuLuotMuonDTO) {
+            Top5SachCoNhieuLuotMuonDTO sach = (Top5SachCoNhieuLuotMuonDTO) obj;
+            Object[] rowData = {sach.getMaSach(), sach.getTenSach(), sach.getSoLuotMuon()};
+            model.addRow(rowData);
+        } else if (obj instanceof LuotMuonSachTheoThangVaTheLoaiDTO) {
+            LuotMuonSachTheoThangVaTheLoaiDTO luotMuon = (LuotMuonSachTheoThangVaTheLoaiDTO) obj;
+            Object[] rowData = {luotMuon.getMaTheLoai(), luotMuon.getTenTheLoai(), luotMuon.getSoLuotMuon()};
+            model.addRow(rowData);
+        }
+    }
+}
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,19 +98,409 @@ public class BaoCaoTK extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        label1 = new java.awt.Label();
+        jTabbedPane2 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        cbb_Thang = new javax.swing.JComboBox<>();
+        btn_Xem = new javax.swing.JButton();
+        btn_In = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        cbb_Month = new javax.swing.JComboBox<>();
+        btn_XemTT = new javax.swing.JButton();
+        btn_InTT = new javax.swing.JButton();
+
+        label1.setText("label1");
+
+        jTabbedPane2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        jPanel3.setBackground(new java.awt.Color(51, 153, 0));
+        jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Số lượt mượn sách theo tháng của từng thể loại sách");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(108, 108, 108))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Mã thể loại", "Tên thể loại", "Số lượt mượn"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jTable2);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setText("Theo tháng : ");
+
+        cbb_Thang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbb_Thang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbb_ThangActionPerformed(evt);
+            }
+        });
+
+        btn_Xem.setText("Xem");
+        btn_Xem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_XemActionPerformed(evt);
+            }
+        });
+
+        btn_In.setText("In");
+        btn_In.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_InActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbb_Thang, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(76, 76, 76)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_In, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_Xem, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(44, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(cbb_Thang, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(35, 35, 35)
+                        .addComponent(btn_Xem, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(48, 48, 48)
+                        .addComponent(btn_In, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jTabbedPane2.addTab("Số lượt mượn theo từng thể loại", jPanel1);
+
+        jPanel4.setBackground(new java.awt.Color(51, 153, 0));
+        jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Top 5 quyển sách được mượn nhiều nhất theo tháng");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(113, 113, 113)
+                .addComponent(jLabel5)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Mã sách", "Tên sách", "Số lượt mượn"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable3.setMinimumSize(new java.awt.Dimension(45, 80));
+        jScrollPane3.setViewportView(jTable3);
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setText("Theo tháng : ");
+
+        cbb_Month.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        btn_XemTT.setText("Xem");
+        btn_XemTT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_XemTTActionPerformed(evt);
+            }
+        });
+
+        btn_InTT.setText("In");
+        btn_InTT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_InTTActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbb_Month, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(77, 77, 77)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_InTT, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_XemTT, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(43, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(cbb_Month, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(34, 34, 34)
+                        .addComponent(btn_XemTT, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(46, 46, 46)
+                        .addComponent(btn_InTT, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 6, Short.MAX_VALUE))
+        );
+
+        jTabbedPane2.addTab("Sách mượn nhiều nhất", jPanel2);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jTabbedPane2)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jTabbedPane2)
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btn_InActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_InActionPerformed
+        // TODO add your handling code here:
+        generatePDF(jTable2, "Report_LuotMuonTheoTheLoai.pdf",cbb_Thang);
+    }//GEN-LAST:event_btn_InActionPerformed
+
+    private void btn_XemTTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_XemTTActionPerformed
+        // TODO add your handling code here:
+        int thang = cbb_Month.getSelectedIndex() + 1;
+        List<Top5SachCoNhieuLuotMuonDTO> top5Sach = BaoCaoTKBUS.getTop5SachCoNhieuLuotMuon(thang);
+    
+        if (top5Sach.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Không tìm thấy dữ liệu", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            loadDataToTable(jTable3, top5Sach);
+        }
+    }//GEN-LAST:event_btn_XemTTActionPerformed
+
+    private void cbb_ThangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_ThangActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbb_ThangActionPerformed
+
+    private void btn_XemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_XemActionPerformed
+        // TODO add your handling code here:
+        int thang = cbb_Thang.getSelectedIndex() + 1;
+        List<LuotMuonSachTheoThangVaTheLoaiDTO> luotMuonTheoTheLoai = BaoCaoTKBUS.getLuotMuonSachTheoThangVaTheLoai(thang);
+
+        if (luotMuonTheoTheLoai.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Không tìm thấy dữ liệu", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            loadDataToTable(jTable2, luotMuonTheoTheLoai);
+        }
+    }//GEN-LAST:event_btn_XemActionPerformed
+
+    private void btn_InTTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_InTTActionPerformed
+        // TODO add your handling code here:
+        generatePDF(jTable3, "Report_Top5Sach.pdf",cbb_Month);
+    }//GEN-LAST:event_btn_InTTActionPerformed
+
+     // In file BaoCaoTK ra PDF
+    private void generatePDF(JTable table, String fileName, JComboBox<String> comboBox) {
+    if (table.getRowCount() == 0) {
+        JOptionPane.showMessageDialog(this, "Không có dữ liệu để xuất PDF", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        return;
+    }
+
+    try {
+        Document document = new Document();
+        PdfWriter.getInstance(document, new FileOutputStream(fileName));
+        document.open();
+
+        // Load the custom font that supports Vietnamese characters
+        String fontPath = "C:\\Users\\ADMIN\\OneDrive\\Documents\\Java_Project_Final\\Java-project\\src\\fonts\\vuArial.ttf";
+        BaseFont baseFont = BaseFont.createFont(fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        Font fontTitle = new Font(baseFont, 20, Font.BOLD, BaseColor.WHITE);
+        Font fontNormal = new Font(baseFont, 12, Font.NORMAL);
+
+        // Create a table for the title
+        PdfPTable titleTable = new PdfPTable(1);
+        titleTable.setWidthPercentage(80);
+
+        // Create a cell for the title with background color and border
+        PdfPCell titleCell = new PdfPCell(new Phrase("Thư viện", fontTitle));
+        titleCell.setBackgroundColor(new BaseColor(51, 153, 0));
+
+        titleCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        titleCell.setPadding(10);
+        titleTable.addCell(titleCell);
+
+        // Determine the subtitle based on the selected tab
+        String selectedMonthText;
+        if (jTabbedPane2.getSelectedIndex() == 0) {
+            int selectedMonth = comboBox.getSelectedIndex() + 1;
+            selectedMonthText = "Số lượt mượn sách theo tháng của từng thể loại sách (" + " Tháng " + selectedMonth +" /2024" +" )";
+        } else {
+            int selectedMonth = comboBox.getSelectedIndex() + 1;
+            selectedMonthText = "Top 5 quyển sách được mượn nhiều nhất theo tháng (" +" Tháng " + selectedMonth +" /2024" + ")";
+        }
+
+        // Create a cell for the subtitle with background color and border
+        PdfPCell subtitleCell = new PdfPCell(new Phrase(selectedMonthText, fontTitle));
+        subtitleCell.setBackgroundColor(new BaseColor(51, 153, 0));
+
+        subtitleCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        subtitleCell.setPadding(10);
+        titleTable.addCell(subtitleCell);
+
+        // Add the title table to the document
+        document.add(titleTable);
+
+        // Add some space after the title
+        document.add(Chunk.NEWLINE);
+
+        PdfPTable pdfTable = new PdfPTable(table.getColumnCount());
+
+        // Adding table headers
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            PdfPCell header = new PdfPCell(new Phrase(table.getColumnName(i), fontNormal));
+            header.setHorizontalAlignment(Element.ALIGN_CENTER);
+            pdfTable.addCell(header);
+        }
+
+        // Adding table rows
+        for (int rows = 0; rows < table.getRowCount(); rows++) {
+            for (int cols = 0; cols < table.getColumnCount(); cols++) {
+                PdfPCell cell = new PdfPCell(new Phrase(table.getModel().getValueAt(rows, cols).toString(), fontNormal));
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                pdfTable.addCell(cell);
+            }
+        }
+
+        document.add(pdfTable);
+        document.close();
+        JOptionPane.showMessageDialog(this, "Xuất file PDF thành công!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        Desktop.getDesktop().open(new File(fileName));
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Có lỗi khi xuất file PDF: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_In;
+    private javax.swing.JButton btn_InTT;
+    private javax.swing.JButton btn_Xem;
+    private javax.swing.JButton btn_XemTT;
+    private javax.swing.JComboBox<String> cbb_Month;
+    private javax.swing.JComboBox<String> cbb_Thang;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
+    private java.awt.Label label1;
     // End of variables declaration//GEN-END:variables
 }
