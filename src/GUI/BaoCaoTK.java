@@ -5,6 +5,7 @@
 package GUI;
 
 import BUS.BaoCaoTKBUS;
+import DTO.BaoCaoTK.DocGiaTraTreSachDTO;
 import DTO.BaoCaoTK.LuotMuonSachTheoThangVaTheLoaiDTO;
 import DTO.BaoCaoTK.Top5SachCoNhieuLuotMuonDTO;
 import com.itextpdf.text.BaseColor;
@@ -23,7 +24,10 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 /**
  *
  * @author User
@@ -36,12 +40,14 @@ public class BaoCaoTK extends javax.swing.JPanel {
     BaoCaoTKBUS BaoCaoTKBUS;
     DefaultTableModel Dtm;
     DefaultTableModel Dtm1;
+    DefaultTableModel Dtm2;
     
     public BaoCaoTK() {
         initComponents();
         // Khoi tao table
 
         BaoCaoTKBUS= new BaoCaoTKBUS();
+        
         Dtm = new DefaultTableModel();
         jTable2.setModel(Dtm);
         Dtm.addColumn("Mã thể loại");
@@ -55,6 +61,15 @@ public class BaoCaoTK extends javax.swing.JPanel {
         Dtm1.addColumn("Tên sách");
         Dtm1.addColumn("Số lượt mượn");
         LoadMonth();
+        
+        Dtm2 = new DefaultTableModel();
+        jTable1.setModel(Dtm2);
+        Dtm2.addColumn("Mã độc giả");
+        Dtm2.addColumn("Họ tên");
+        Dtm2.addColumn("Hạn trả");
+        Dtm2.addColumn("Số ngày trả trễ");
+        LoadThangThang();
+       
     }
     // Dua du lieu Thang vao trong combobox
     public void LoadThang() {
@@ -68,6 +83,13 @@ public class BaoCaoTK extends javax.swing.JPanel {
         cbb_Month.removeAllItems();
         for (int i = 1; i <= 12; i++) {
             cbb_Month.addItem("Tháng " + i);
+        }
+    }
+    
+    public void LoadThangThang() {
+        cbb_ThangThang.removeAllItems();
+        for (int i = 1; i <= 12; i++) {
+            cbb_ThangThang.addItem("Tháng " + i);
         }
     }
 
@@ -84,6 +106,10 @@ public class BaoCaoTK extends javax.swing.JPanel {
         } else if (obj instanceof LuotMuonSachTheoThangVaTheLoaiDTO) {
             LuotMuonSachTheoThangVaTheLoaiDTO luotMuon = (LuotMuonSachTheoThangVaTheLoaiDTO) obj;
             Object[] rowData = {luotMuon.getMaTheLoai(), luotMuon.getTenTheLoai(), luotMuon.getSoLuotMuon()};
+            model.addRow(rowData);
+        } else if (obj instanceof DocGiaTraTreSachDTO) {
+            DocGiaTraTreSachDTO docGiaTreTre = (DocGiaTraTreSachDTO) obj;
+            Object[] rowData = {docGiaTreTre.getMaDocGia(), docGiaTreTre.getHoTen(), docGiaTreTre.getHanTra(), docGiaTreTre.getSoNgayTraTre()};
             model.addRow(rowData);
         }
     }
@@ -118,6 +144,15 @@ public class BaoCaoTK extends javax.swing.JPanel {
         cbb_Month = new javax.swing.JComboBox<>();
         btn_XemTT = new javax.swing.JButton();
         btn_InTT = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel6 = new javax.swing.JLabel();
+        cbb_ThangThang = new javax.swing.JComboBox<>();
+        btn_XemXem = new javax.swing.JButton();
+        btn_InIn = new javax.swing.JButton();
 
         label1.setText("label1");
 
@@ -137,8 +172,8 @@ public class BaoCaoTK extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel4)
-                .addGap(108, 108, 108))
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(127, 127, 127))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,19 +242,19 @@ public class BaoCaoTK extends javax.swing.JPanel {
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addGap(17, 17, 17)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbb_Thang, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(76, 76, 76)
+                        .addGap(75, 75, 75)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btn_In, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btn_Xem, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,8 +288,8 @@ public class BaoCaoTK extends javax.swing.JPanel {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(113, 113, 113)
-                .addComponent(jLabel5)
+                .addGap(145, 145, 145)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -292,6 +327,11 @@ public class BaoCaoTK extends javax.swing.JPanel {
         jLabel2.setText("Theo tháng : ");
 
         cbb_Month.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbb_Month.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbb_MonthActionPerformed(evt);
+            }
+        });
 
         btn_XemTT.setText("Xem");
         btn_XemTT.addActionListener(new java.awt.event.ActionListener() {
@@ -326,7 +366,7 @@ public class BaoCaoTK extends javax.swing.JPanel {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btn_InTT, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btn_XemTT, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -347,6 +387,126 @@ public class BaoCaoTK extends javax.swing.JPanel {
         );
 
         jTabbedPane2.addTab("Sách mượn nhiều nhất", jPanel2);
+
+        jPanel6.setBackground(new java.awt.Color(51, 153, 0));
+        jPanel6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel6.setMinimumSize(new java.awt.Dimension(0, 0));
+        jPanel6.setPreferredSize(new java.awt.Dimension(755, 85));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Độc giả trễ hẹn trả sách ");
+        jLabel3.setMaximumSize(new java.awt.Dimension(584, 32));
+        jLabel3.setMinimumSize(new java.awt.Dimension(584, 32));
+        jLabel3.setPreferredSize(new java.awt.Dimension(584, 32));
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(265, 265, 265)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Mã độc giả", "Họ tên", "Hạn trả", "Số ngày trả trễ"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable1.setMinimumSize(new java.awt.Dimension(45, 80));
+        jTable1.setPreferredSize(new java.awt.Dimension(225, 100));
+        jScrollPane1.setViewportView(jTable1);
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel6.setText("Theo tháng : ");
+
+        cbb_ThangThang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbb_ThangThang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbb_ThangThangActionPerformed(evt);
+            }
+        });
+
+        btn_XemXem.setText("Xem");
+        btn_XemXem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_XemXemActionPerformed(evt);
+            }
+        });
+
+        btn_InIn.setText("In");
+        btn_InIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_InInActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbb_ThangThang, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(76, 76, 76)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_InIn, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_XemXem, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(124, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbb_ThangThang, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
+                        .addGap(33, 33, 33)
+                        .addComponent(btn_XemXem, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(44, 44, 44)
+                        .addComponent(btn_InIn, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(197, 197, 197))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
+        );
+
+        jTabbedPane2.addTab("Trả sách trễ hẹn", jPanel5);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -379,8 +539,20 @@ public class BaoCaoTK extends javax.swing.JPanel {
 
     private void cbb_ThangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_ThangActionPerformed
         // TODO add your handling code here:
+         resetTableData();
     }//GEN-LAST:event_cbb_ThangActionPerformed
 
+    private void resetTableData() {
+    DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+    DefaultTableModel model1 = (DefaultTableModel) jTable3.getModel();
+    DefaultTableModel model2 = (DefaultTableModel) jTable1.getModel();
+    model.setRowCount(0); // Xóa tất cả các hàng hiện tại
+    model1.setRowCount(0); // Xóa tất cả các hàng hiện tại
+    model2.setRowCount(0); // Xóa tất cả các hàng hiện tại
+
+
+}
+    
     private void btn_XemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_XemActionPerformed
         // TODO add your handling code here:
         int thang = cbb_Thang.getSelectedIndex() + 1;
@@ -397,6 +569,46 @@ public class BaoCaoTK extends javax.swing.JPanel {
         // TODO add your handling code here:
         generatePDF(jTable3, "Report_Top5Sach.pdf",cbb_Month);
     }//GEN-LAST:event_btn_InTTActionPerformed
+
+    private void btn_XemXemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_XemXemActionPerformed
+        // TODO add your handling code here:
+        
+        int thang = cbb_ThangThang.getSelectedIndex() + 1;
+    List<DocGiaTraTreSachDTO> TraTreSach = BaoCaoTKBUS.getDocGiaTraTreSach(thang);
+
+    if (TraTreSach.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Không tìm thấy dữ liệu", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+    } else {
+        // Sử dụng Set để lưu trữ mã độc giả đã xuất hiện
+        Set<String> uniqueMaDocGia = new HashSet<>();
+        List<DocGiaTraTreSachDTO> uniqueTraTreSach = new ArrayList<>();
+
+        // Duyệt qua danh sách và chỉ thêm bản ghi nếu mã độc giả chưa tồn tại trong Set
+        for (DocGiaTraTreSachDTO dto : TraTreSach) {
+            if (uniqueMaDocGia.add(dto.getMaDocGia())) {
+                uniqueTraTreSach.add(dto);
+            }
+        }
+
+        // Hiển thị dữ liệu đã lọc vào bảng
+        loadDataToTable(jTable1, uniqueTraTreSach);
+    }
+    }//GEN-LAST:event_btn_XemXemActionPerformed
+
+    private void btn_InInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_InInActionPerformed
+        // TODO add your handling code here:
+        generatePDF(jTable1, "Report_TraTreSach.pdf",cbb_ThangThang);
+    }//GEN-LAST:event_btn_InInActionPerformed
+
+    private void cbb_MonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_MonthActionPerformed
+        // TODO add your handling code here:
+        resetTableData();
+    }//GEN-LAST:event_cbb_MonthActionPerformed
+
+    private void cbb_ThangThangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_ThangThangActionPerformed
+        // TODO add your handling code here:
+        resetTableData();
+    }//GEN-LAST:event_cbb_ThangThangActionPerformed
 
      // In file BaoCaoTK ra PDF
     private void generatePDF(JTable table, String fileName, JComboBox<String> comboBox) {
@@ -433,9 +645,12 @@ public class BaoCaoTK extends javax.swing.JPanel {
         if (jTabbedPane2.getSelectedIndex() == 0) {
             int selectedMonth = comboBox.getSelectedIndex() + 1;
             selectedMonthText = "Số lượt mượn sách theo tháng của từng thể loại sách (" + " Tháng " + selectedMonth +" /2024" +" )";
-        } else {
+        } else if (jTabbedPane2.getSelectedIndex() == 1) {
             int selectedMonth = comboBox.getSelectedIndex() + 1;
             selectedMonthText = "Top 5 quyển sách được mượn nhiều nhất theo tháng (" +" Tháng " + selectedMonth +" /2024" + ")";
+        } else{
+            int selectedMonth = comboBox.getSelectedIndex() + 1;
+            selectedMonthText = "Độc giả trễ hẹn trả sách (" +" Tháng " + selectedMonth +" /2024" + ")";
         }
 
         // Create a cell for the subtitle with background color and border
@@ -483,22 +698,31 @@ public class BaoCaoTK extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_In;
+    private javax.swing.JButton btn_InIn;
     private javax.swing.JButton btn_InTT;
     private javax.swing.JButton btn_Xem;
     private javax.swing.JButton btn_XemTT;
+    private javax.swing.JButton btn_XemXem;
     private javax.swing.JComboBox<String> cbb_Month;
     private javax.swing.JComboBox<String> cbb_Thang;
+    private javax.swing.JComboBox<String> cbb_ThangThang;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private java.awt.Label label1;
