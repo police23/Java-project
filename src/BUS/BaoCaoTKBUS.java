@@ -1,6 +1,7 @@
 package BUS;
 
 import DAO.BaoCaoTKDAO;
+import DTO.BaoCaoTK.DocGiaTraTreSachDTO;
 import DTO.BaoCaoTK.LuotMuonSachTheoThangVaTheLoaiDTO;
 import DTO.BaoCaoTK.Top5SachCoNhieuLuotMuonDTO;
 
@@ -19,5 +20,9 @@ public class BaoCaoTKBUS {
 
     public List<Top5SachCoNhieuLuotMuonDTO> getTop5SachCoNhieuLuotMuon(int thang) {
         return baoCaoTKDAO.getTop5SachCoNhieuLuotMuon(thang);
+    }
+    
+    public List<DocGiaTraTreSachDTO> getDocGiaTraTreSach(int thang) {
+        return baoCaoTKDAO.getDocGiaTraTreSach(thang);
     }
 }
