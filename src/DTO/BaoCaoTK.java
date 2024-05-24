@@ -101,4 +101,54 @@ public class BaoCaoTK {
             this.soLuotMuon = soLuotMuon;
         }
     }
+    
+    public static class DocGiaTraTreSachDTO {
+        private String maDocGia;
+        private String hoTen;
+        private String hanTra;
+        private int soNgayTraTre;
+
+        public DocGiaTraTreSachDTO() {
+        }
+
+        public DocGiaTraTreSachDTO(String maDocGia, String hoTen, String hanTra, int soNgayTraTre) {
+            this.maDocGia = maDocGia;
+            this.hoTen = hoTen;
+            this.hanTra = hanTra;
+            this.soNgayTraTre = soNgayTraTre;
+        }
+
+        // Getters and Setters
+        public String getMaDocGia() {
+            return maDocGia;
+        }
+
+        public void setMaDocGia(String maDocGia) {
+            this.maDocGia = maDocGia;
+        }
+
+        public String getHoTen() {
+            return hoTen;
+        }
+
+        public void setHoTen(String hoTen) {
+            this.hoTen = hoTen;
+        }
+
+        public String getHanTra() {
+            return hanTra;
+        }
+
+        public void setHanTra(String hanTra) {
+            this.hanTra = hanTra;
+        }
+
+        public int getSoNgayTraTre() {
+            return soNgayTraTre;
+        }
+
+        public void setSoNgayTraTre(int soNgayTraTre) {
+            this.soNgayTraTre = soNgayTraTre;
+        }
+    }
 }
