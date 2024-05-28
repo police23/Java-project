@@ -271,12 +271,9 @@ public class QLNguoiDung extends javax.swing.JPanel {
         else { // A row is selected
             String selectedMaTK = (String) dtm.getValueAt(selectedRow, 0);
             TaiKhoan tk = new TaiKhoan();
-            try {
-                tk = tkb.getThongTinTK(selectedMaTK);
-                System.out.println("Dang trong sua action perform " +tk.getMaTK());
-            } catch (SQLException ex) {
-                Logger.getLogger(QLNguoiDung.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            tk = tkb.getThongTinTK(selectedMaTK);
+            System.out.println("Dang trong sua action perform " +tk.getMaTK());
+           
             CapNhatTaiKhoan uptk = new CapNhatTaiKhoan(tk, this);
             uptk.setLocationRelativeTo(null);
             uptk.setVisible(true);
@@ -290,11 +287,9 @@ public class QLNguoiDung extends javax.swing.JPanel {
         else {
             String selectedMaTK = (String) dtm.getValueAt(selectedRow, 0);
             TaiKhoan tk = new TaiKhoan();
-            try {
-                tk = tkb.getThongTinTK(selectedMaTK);
-            } catch (SQLException ex) {
-                Logger.getLogger(QLNguoiDung.class.getName()).log(Level.SEVERE, null, ex);
-            }
+           
+            tk = tkb.getThongTinTK(selectedMaTK);
+           
             CTTaiKhoan bd = new CTTaiKhoan(tk, this);
             bd.setLocationRelativeTo(null);
             bd.setVisible(true);
@@ -305,11 +300,9 @@ public class QLNguoiDung extends javax.swing.JPanel {
         String query = txtTim.getText();
         TaiKhoan tk = null;
         if (ComboBox_Search.getSelectedIndex() == 0) {
-            try {
-                tk = tkb.getThongTinTK(query);
-            } catch (SQLException ex) {
-                Logger.getLogger(QLNguoiDung.class.getName()).log(Level.SEVERE, null, ex);
-            }
+           
+            tk = tkb.getThongTinTK(query);
+           
         }
         String vaitro = "";
         if (tk != null) {

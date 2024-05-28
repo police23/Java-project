@@ -7,6 +7,7 @@ package BUS;
 import java.util.List;
 import DAO.BookDAO;
 import DTO.Book;
+import java.sql.*;
 
 /**
  *
@@ -39,7 +40,7 @@ public class BookBUS {
         return false; 
 }
 
-    public void deleteBook(String id) {
+    public void deleteBook(String id) throws SQLException {
         BookDAO.deleteBook(id);
     }
     public void updateBook(Book bk) {

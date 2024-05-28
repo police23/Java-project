@@ -19,7 +19,7 @@ public class TaiKhoanBUS {
     public TaiKhoanBUS() {
         this.TaiKhoanDAO = new TaiKhoanDAO();
     }
-    public TaiKhoan getThongTinTK(String maND) throws SQLException  {
+    public TaiKhoan getThongTinTK(String maND) {
         return TaiKhoanDAO.getThongTinTK(maND);      
     }
     public List<TaiKhoan> getAllTaiKhoans() {
@@ -34,4 +34,11 @@ public class TaiKhoanBUS {
     public void deleteTaiKhoan(String MaTK) {
         TaiKhoanDAO.deleteTaiKhoan(MaTK);
     }
+    public boolean KTMatKhauHienTai(String MaTK, String MKHienTai) {
+        return TaiKhoanDAO.KTMatKhauHienTai(MaTK, MKHienTai);
+    }
+     public void updateMatKhau(String MaTK, String MKMoi) {
+         TaiKhoanDAO.updateMatKhau(MaTK, MKMoi);
+     }
+    
 }

@@ -181,7 +181,7 @@ public class NhaXBDAO {
         boolean hasReferences = false;
 
         try {
-            conn = JDBCConnection.getJDBCConnection(); // Thay thế YourDatabaseConnection bằng phương thức kết nối của bạn
+            conn = JDBCConnection.getJDBCConnection(); 
 
             String sql = "SELECT COUNT(*) FROM SACH WHERE MANXB = ?";
             statement = conn.prepareStatement(sql);
@@ -197,7 +197,7 @@ public class NhaXBDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            // Đóng kết nối và các đối tượng liên quan
+           
             try {
                 if (resultSet != null) resultSet.close();
                 if (statement != null) statement.close();

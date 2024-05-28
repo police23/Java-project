@@ -231,23 +231,21 @@ public class QLNXB extends javax.swing.JPanel {
     private void btnXoaNXBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaNXBActionPerformed
         int row = tableNXB.getSelectedRow();
         if (row == -1) {
-        
             JOptionPane.showMessageDialog(this, "Vui lòng chọn một nhà xuất bản để xóa.");
             return; 
     }
-
         String MaNXB = String.valueOf(tableNXB.getValueAt(row, 0));
         NhaXBBUS nhaXBBUS = new NhaXBBUS();
         boolean hasReferences = nhaXBBUS.checkNXBReferences(MaNXB);
-        if (hasReferences) {
-            JOptionPane.showMessageDialog(this, "Không thể xóa nhà xuất bản này vẫn còn sách thuộc nhà xuất bản đó");
-    }   else {
-            int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc xóa nhà xuất bản này không ?");
-            if (confirm == JOptionPane.YES_OPTION) {
+        int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc xóa nhà xuất bản này không ?");
+        if (confirm == JOptionPane.YES_OPTION) {
+            if (hasReferences) {
+            JOptionPane.showMessageDialog(this, "Không thể xóa nhà xuất bản này vẫn còn sách thuộc nhà xuất bản đó");}
+            else {
                 nhaXBBUS.deleteNXB(MaNXB);
                 updateTable();
         }
-    }
+            }
     }//GEN-LAST:event_btnXoaNXBActionPerformed
 
     private void btnSuaNXBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaNXBActionPerformed

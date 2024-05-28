@@ -59,8 +59,9 @@ public class ThemPT extends javax.swing.JFrame {
         Date today = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String NgayTra = dateFormat.format(new java.sql.Date(today.getTime()));
-        Text_NgayTra.setText(NgayTra);
-        Text_NgayTra.setEditable(false);
+        tableDSSachMuon.setRowHeight(25);
+        //Text_NgayTra.setText(NgayTra);
+        //Text_NgayTra.setEditable(false);
         ComboBox_MaDG.addItemListener(new ItemListener() {
             public void itemStateChanged (ItemEvent ie) {
                 if (ie.getStateChange() == ItemEvent.SELECTED) {
@@ -87,12 +88,10 @@ public class ThemPT extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtMaTT = new javax.swing.JTextField();
         ComboBox_Sach = new javax.swing.JComboBox<>();
         btnThemSach = new javax.swing.JButton();
-        Text_NgayTra = new javax.swing.JTextField();
         Text_HoTenDG = new javax.swing.JTextField();
         ComboBox_MaDG = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
@@ -136,25 +135,17 @@ public class ThemPT extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setText("Người lập phiếu : ");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel4.setText("Ngày trả :");
-
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("Sách trả :");
 
         ComboBox_Sach.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        btnThemSach.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnThemSach.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-add-book-16.png"))); // NOI18N
         btnThemSach.setText("Thêm");
         btnThemSach.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThemSachActionPerformed(evt);
-            }
-        });
-
-        Text_NgayTra.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Text_NgayTraActionPerformed(evt);
             }
         });
 
@@ -179,6 +170,7 @@ public class ThemPT extends javax.swing.JFrame {
         ));
         jScrollPane6.setViewportView(tableDSSachMuon);
 
+        btnXoa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/remove (1).png"))); // NOI18N
         btnXoa.setText("Xóa");
         btnXoa.addActionListener(new java.awt.event.ActionListener() {
@@ -187,6 +179,7 @@ public class ThemPT extends javax.swing.JFrame {
             }
         });
 
+        btnHuy.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnHuy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-cancel-24.png"))); // NOI18N
         btnHuy.setText("Hủy");
         btnHuy.addActionListener(new java.awt.event.ActionListener() {
@@ -195,6 +188,7 @@ public class ThemPT extends javax.swing.JFrame {
             }
         });
 
+        btnOK.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnOK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-ok-24.png"))); // NOI18N
         btnOK.setText("OK");
         btnOK.addActionListener(new java.awt.event.ActionListener() {
@@ -212,19 +206,7 @@ public class ThemPT extends javax.swing.JFrame {
                 .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(97, 97, 97)
-                        .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel6)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnXoa))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
                             .addComponent(jLabel5)
                             .addComponent(jLabel7)
                             .addComponent(jLabel3)
@@ -234,15 +216,22 @@ public class ThemPT extends javax.swing.JFrame {
                             .addComponent(ComboBox_MaDG, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Text_HoTenDG, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtMaTT, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addGap(200, 200, 200)
-                                    .addComponent(btnThemSach, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(ComboBox_Sach, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(102, 102, 102)))
-                            .addComponent(Text_NgayTra, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(23, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(ComboBox_Sach, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
+                                .addComponent(btnThemSach, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(88, 88, 88)
+                        .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(90, 90, 90)
+                        .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel6)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnXoa)))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,7 +241,7 @@ public class ThemPT extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(ComboBox_MaDG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Text_HoTenDG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
@@ -260,11 +249,7 @@ public class ThemPT extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(txtMaTT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Text_NgayTra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addGap(34, 34, 34)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(ComboBox_Sach)
@@ -276,13 +261,13 @@ public class ThemPT extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
+                        .addGap(51, 51, 51)
                         .addComponent(btnXoa)))
-                .addGap(18, 18, 18)
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(22, 22, 22))
         );
 
         pack();
@@ -393,7 +378,7 @@ public class ThemPT extends javax.swing.JFrame {
             }
             pt.setMaTT(txtMaTT.getText());
             pt.setMaDG(ComboBox_MaDG.getSelectedItem().toString());
-            pt.setNgayTra(new java.sql.Date(today.getTime()));
+            //pt.setNgayTra(new java.sql.Date(today.getTime()));
             PhieuTraDAO ptDAO = new PhieuTraDAO();
             ptDAO.addPhieuTra(pt, maSachArray);
             JOptionPane.showMessageDialog(null,"Thêm phiếu trả thành công");
@@ -401,10 +386,6 @@ public class ThemPT extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_btnOKActionPerformed
-
-    private void Text_NgayTraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Text_NgayTraActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Text_NgayTraActionPerformed
 
     private void ComboBox_MaDGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBox_MaDGActionPerformed
         // TODO add your handling code here:
@@ -449,7 +430,6 @@ public class ThemPT extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> ComboBox_MaDG;
     private javax.swing.JComboBox<String> ComboBox_Sach;
     private javax.swing.JTextField Text_HoTenDG;
-    private javax.swing.JTextField Text_NgayTra;
     private javax.swing.JButton btnHuy;
     private javax.swing.JButton btnOK;
     private javax.swing.JButton btnThemSach;
@@ -457,7 +437,6 @@ public class ThemPT extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

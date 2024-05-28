@@ -32,7 +32,7 @@ public class TaiKhoanDAO {
         }
         return tks;
     }
-    public TaiKhoan getThongTinTK(String maND) throws SQLException  {
+    public TaiKhoan getThongTinTK(String maND) {
         Connection conn = JDBCConnection.getJDBCConnection();
         String sql = "SELECT MATAIKHOAN, EMAIL, MAVAITRO, MATKHAU FROM TAIKHOAN WHERE MATAIKHOAN = ?";
         TaiKhoan taiKhoan = new TaiKhoan();
@@ -152,7 +152,38 @@ public class TaiKhoanDAO {
             }
         }
     }
-    
+    public boolean KTMatKhauHienTai(String MaTK, String MKHienTai) {
+        Connection conn = JDBCConnection.getJDBCConnection();
+        String sql = "SELECT MATKHAU FROM TAIKHOAN WHERE MATAIKHOAN = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, MaTK);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                String MKHT = rs.getString("MATKHAU");
+                return MKHT.equals(MKHienTai);
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+     public void updateMatKhau(String MaTK, String MKMoi) {
+         Connection conn = JDBCConnection.getJDBCConnection();
+         String sql = "UPDATE TAIKHOAN SET MATKHAU = ? WHERE MATAIKHOAN = ?";
+         try {
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ps.setString(1,MKMoi);
+             ps.setString(2,MaTK);
+             int rs = ps.executeUpdate();
+             ps.close();
+         }
+         catch (SQLException e) {
+             e.printStackTrace();
+         }
+     }
 }
     
 

@@ -53,12 +53,12 @@ public void addPhieuPhat(PhieuPhat pp, List<PhieuPhat.CTPhieuPhat> SachPhatArray
 
     try {
         // Create a CallableStatement object.
-        String SQL = "{call THEMPHIEUPHAT_PROC(?,?,?,?)}"; //TAO MOI PROCEDURE PHIEU PHAT
+        String SQL = "{call THEMPHIEUPHAT_PROC(?,?,?)}"; //TAO MOI PROCEDURE PHIEU PHAT
         cstmt = conn.prepareCall(SQL);
 
         cstmt.setString(1, pp.getMaTT());
         cstmt.setString(2, pp.getMaDG());
-        cstmt.setDate(3, new java.sql.Date(pp.getNgayLap().getTime()));
+        //cstmt.setDate(3, new java.sql.Date(pp.getNgayLap().getTime()));
 
         // Create the descriptor for the nested object type
         StructDescriptor structDescriptor = StructDescriptor.createDescriptor("SACH_PHAT", conn);
@@ -80,7 +80,7 @@ public void addPhieuPhat(PhieuPhat pp, List<PhieuPhat.CTPhieuPhat> SachPhatArray
         ArrayDescriptor arrayDescriptor = ArrayDescriptor.createDescriptor("SACH_PHAT_LIST", conn);
         ARRAY array = new ARRAY(arrayDescriptor, conn, structArray);
 
-        cstmt.setArray(4, array);
+        cstmt.setArray(3, array);
         cstmt.execute();
     } catch (SQLException ex) {
         ex.printStackTrace();

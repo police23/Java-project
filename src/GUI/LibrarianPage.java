@@ -5,6 +5,7 @@
 package GUI;
 
 import java.awt.Color;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import login.CurrentUser;
@@ -37,6 +38,8 @@ public class LibrarianPage extends javax.swing.JFrame {
         LibrarianMain.add(qlt);
         LibrarianMain.add(qlp);
         LibrarianMain.add(tttk);
+        tttk.setVisible(false);
+       
         LibrarianMain.add(bc);
         LibrarianMain.add(dsdk);
         qls.setVisible(false);
@@ -44,7 +47,6 @@ public class LibrarianPage extends javax.swing.JFrame {
         qlm.setVisible(false);
         qlt.setVisible(false);
         qlp.setVisible(false);
-        tttk.setVisible(false);
         bc.setVisible(false);
         dsdk.setVisible(false);
         String MaTT = CurrentUser.getInstance().getMaND(); 
@@ -482,7 +484,7 @@ public class LibrarianPage extends javax.swing.JFrame {
         resetColor(btnQLSach);
         resetColor(btnThongTinTK);
         resetColor(btnDSDangKy);
-        qls.setVisible(true);
+        qls.setVisible(false);
         qlxb.setVisible(false);
         qlm.setVisible(false);
         qlt.setVisible(false);

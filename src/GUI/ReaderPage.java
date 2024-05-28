@@ -8,6 +8,7 @@ import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import login.CurrentUser;
+import java.sql.*;
 
 /**
  *
@@ -170,7 +171,8 @@ public class ReaderPage extends javax.swing.JFrame {
 
         setColor(btnSach);
         resetColor(btnThongTinTK);
-        DKMuonSach dk = new DKMuonSach();
+        //DKMuonSach dk = new DKMuonSach();
+        tt.setVisible(false);
         dk.setVisible(true);
        
        
@@ -179,9 +181,9 @@ public class ReaderPage extends javax.swing.JFrame {
     private void btnThongTinTKMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThongTinTKMouseClicked
         setColor(btnThongTinTK);
         resetColor(btnSach);
-        ThongTinTK tt = new ThongTinTK();
+        //ThongTinTK tt = new ThongTinTK();
         tt.setVisible(true);
-        
+        dk.setVisible(false);
     }//GEN-LAST:event_btnThongTinTKMouseClicked
 
     /**

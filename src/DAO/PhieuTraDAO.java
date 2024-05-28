@@ -47,15 +47,15 @@ public class PhieuTraDAO {
         Connection conn = JDBCConnection.getJDBCConnection();
         CallableStatement cstmt = null;
     try {
-        String SQL = "{call THEMPHIEUTRA_PROC(?,?,?,?)}"; 
+        String SQL = "{call THEMPHIEUTRA_PROC(?,?,?)}"; 
         cstmt = conn.prepareCall(SQL);
         cstmt.setString(1, pt.getMaTT());
         cstmt.setString(2, pt.getMaDG());
-        cstmt.setDate(3, new java.sql.Date(pt.getNgayTra().getTime()));
+        //cstmt.setDate(3, new java.sql.Date(pt.getNgayTra().getTime()));
         // Convert list of book IDs to an oracle.sql.ARRAY
         ArrayDescriptor descriptor = ArrayDescriptor.createDescriptor("SACH_LIST", conn);
         ARRAY array = new ARRAY(descriptor, conn, maSachArray);
-        cstmt.setArray(4, array);
+        cstmt.setArray(3, array);
         cstmt.execute();
     } catch (SQLException ex) {
         ex.printStackTrace();

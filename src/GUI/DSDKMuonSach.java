@@ -38,8 +38,7 @@ public class DSDKMuonSach extends javax.swing.JPanel {
         tableCTDK.setModel(dtmCTDK);
         tableCTDK.setRowHeight(25);
         dtmDSDK.addColumn("Mã đăng ký");
-        dtmDSDK.addColumn("Mã độc giả");
-        dtmDSDK.addColumn("Tên độc giả");
+        dtmDSDK.addColumn("Độc giả đăng ký");
         dtmDSDK.addColumn("Ngày đăng ký");
         dtmCTDK.addColumn("Mã sách");
         dtmCTDK.addColumn("Tên sách");
@@ -73,7 +72,7 @@ public class DSDKMuonSach extends javax.swing.JPanel {
         List<DKMuon> ds = DKMuonBUS.getDSDK();
         ds.sort((DKMuon b1, DKMuon b2) -> b1.getMaDK().compareTo(b2.getMaDK()));
         for (DKMuon dk : ds) {
-            dtmDSDK.addRow(new Object[] {dk.getMaDK(), dk.getMaDG(), dk.getHoTen(), dk.getNgayDK()});
+            dtmDSDK.addRow(new Object[] {dk.getMaDK(), dk.getMaDG(), dk.getNgayDK()});
         }
     } catch (SQLException e) {
         e.printStackTrace();
@@ -83,8 +82,8 @@ public class DSDKMuonSach extends javax.swing.JPanel {
     public void LoadSearchBy() {
         ComboBox_Search.removeAllItems();
         ComboBox_Search.addItem("Mã đăng ký");
-        ComboBox_Search.addItem("Mã độc giả");
-        ComboBox_Search.addItem("Tên độc giả");
+        ComboBox_Search.addItem("Độc giả đăng ký");
+        //ComboBox_Search.addItem("Tên độc giả");
     }
 
     /**

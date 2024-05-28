@@ -18,6 +18,7 @@ import java.sql.*;
 public class QLMuon extends javax.swing.JPanel {
     PhieuMuonBUS PhieuMuonBUS;
     DefaultTableModel dtm;
+    private QLSach qls; 
 
     /**
      * Creates new form QLMuon
@@ -26,9 +27,10 @@ public class QLMuon extends javax.swing.JPanel {
         initComponents();
         PhieuMuonBUS = new PhieuMuonBUS();
         dtm = new DefaultTableModel();
+      
         tablePhieuMuon.setModel(dtm);
         dtm.addColumn("Mã phiếu mượn");
-        dtm.addColumn("Mã độc giả");
+        dtm.addColumn("Độc giả mượn sách");
         dtm.addColumn("Ngày mượn");
         updateTable();
         LoadSearchBy();
@@ -233,10 +235,11 @@ public class QLMuon extends javax.swing.JPanel {
     }//GEN-LAST:event_btnTimActionPerformed
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
-
+        updateTable();
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void btnThemPMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemPMActionPerformed
+
         ThemPM pm = new ThemPM(this);
         pm.setLocationRelativeTo(null);
         pm.setVisible(true);

@@ -6,6 +6,7 @@ package GUI;
 
 import BUS.BookBUS;
 import DTO.Book;
+import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -15,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
  * @author User
  */
 public class QLSach extends javax.swing.JPanel {
+     private static QLSach instance; 
     BookBUS BookBUS;
     DefaultTableModel dtm;
     
@@ -35,6 +37,12 @@ public class QLSach extends javax.swing.JPanel {
         updateTable();
         LoadSearchBy();
     }
+    public static QLSach getInstance() {
+        if (instance == null) {
+            instance = new QLSach();
+        }
+        return instance;
+    }
     public void updateTable() {   
         dtm.setRowCount(0); 
         List<Book> bks = BookBUS.getAllBooks();
@@ -42,8 +50,16 @@ public class QLSach extends javax.swing.JPanel {
         for (Book bk : bks) {
             dtm.addRow(new Object[] {bk.getMaSach(), bk.getTenSach(), bk.getTacGia(), bk.getTheLoai(), bk.getSoLuong()});
         }
+        dtm.fireTableDataChanged();
+        tableSach.revalidate();
+        tableSach.repaint();
         this.tableSach.setRowHeight(30);
     };
+    public void repaintTable() {
+        tableSach.revalidate();
+        tableSach.repaint();
+    }
+    
     public void LoadSearchBy() {
         ComboBox_Search.removeAllItems();
         ComboBox_Search.addItem("Mã sách");
@@ -301,13 +317,25 @@ public class QLSach extends javax.swing.JPanel {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         int row = tableSach.getSelectedRow();
+        if (row == -1) {
+        JOptionPane.showMessageDialog(this, "Vui lòng chọn sách cần xóa!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
         int confirm = JOptionPane.showConfirmDialog(this,"Bạn có chắc xóa sách này không ? ");
         if (confirm == JOptionPane.YES_OPTION) {
+            try {
             String MaSach = String.valueOf(String.valueOf(tableSach.getValueAt(row,0)));
-            BookBUS BookBUS = new BookBUS();
+           // BookBUS BookBUS = new BookBUS();
             BookBUS.deleteBook(MaSach);
-            updateTable();
+            JOptionPane.showMessageDialog(this, "Xóa sách thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            updateTable();   
         }
+            catch (SQLException ex) {
+            if (ex.getErrorCode() == 20002) {
+                JOptionPane.showMessageDialog(null,"Không thể xóa do còn độc giả đang mượn sách này","Lỗi",JOptionPane.ERROR_MESSAGE);
+        }
+        }
+            }
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnThemSachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemSachActionPerformed

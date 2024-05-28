@@ -36,6 +36,7 @@ public class ThemPM extends javax.swing.JFrame {
      PreparedStatement pst;
      ResultSet rs;
      QLMuon qlpm;
+     QLSach qls;
      PhieuMuonBUS PhieuMuonBUS;
      PhieuMuon pm;
     /**
@@ -53,7 +54,9 @@ public class ThemPM extends javax.swing.JFrame {
         pm = new PhieuMuon();
         PhieuMuonBUS = new PhieuMuonBUS();
         this.qlpm = qlpm;
+        this.qls = qls;
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        tableDSSachMuon.setRowHeight(25);
         Calendar c = Calendar.getInstance();
         c.add(Calendar.DATE, 14);
         Date_HanTra.setDate(c.getTime());
@@ -221,6 +224,7 @@ public class ThemPM extends javax.swing.JFrame {
         ));
         jScrollPane6.setViewportView(tableDSSachMuon);
 
+        btnThemSach.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnThemSach.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-add-book-16.png"))); // NOI18N
         btnThemSach.setText("Thêm");
         btnThemSach.addActionListener(new java.awt.event.ActionListener() {
@@ -229,6 +233,7 @@ public class ThemPM extends javax.swing.JFrame {
             }
         });
 
+        btnXoa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/remove (1).png"))); // NOI18N
         btnXoa.setText("Xóa");
         btnXoa.addActionListener(new java.awt.event.ActionListener() {
@@ -237,6 +242,7 @@ public class ThemPM extends javax.swing.JFrame {
             }
         });
 
+        btnHuy.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnHuy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-cancel-24.png"))); // NOI18N
         btnHuy.setText("Hủy");
         btnHuy.addActionListener(new java.awt.event.ActionListener() {
@@ -245,6 +251,7 @@ public class ThemPM extends javax.swing.JFrame {
             }
         });
 
+        btnOK.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnOK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-ok-24.png"))); // NOI18N
         btnOK.setText("OK");
         btnOK.addActionListener(new java.awt.event.ActionListener() {
@@ -274,12 +281,11 @@ public class ThemPM extends javax.swing.JFrame {
                             .addComponent(jLabel6)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addGap(2, 2, 2)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel2)
+                                        .addComponent(jLabel7)
                                         .addComponent(jLabel3)
-                                        .addComponent(jLabel7))
-                                    .addGap(31, 31, 31)
+                                        .addComponent(jLabel2))
+                                    .addGap(33, 33, 33)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(ComboBox_MaDG, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(Date_HanTra, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
@@ -299,7 +305,7 @@ public class ThemPM extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnThemSach, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(35, 35, 35))))))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -382,7 +388,6 @@ public class ThemPM extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Thêm phiếu mượn thành công");
             qlpm.updateTable();
             this.dispose();
-            
         }
             
     }//GEN-LAST:event_btnOKActionPerformed
