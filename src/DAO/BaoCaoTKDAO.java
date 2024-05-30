@@ -84,7 +84,7 @@ public class BaoCaoTKDAO {
         return list;
     }
     
-    public List<DocGiaTraTreSachDTO> getDocGiaTraTreSach(int thang) {
+    public List<DocGiaTraTreSachDTO> getDocGiaTraTreSach() {
     List<DocGiaTraTreSachDTO> list = new ArrayList<>();
 
     String query = "SELECT dg.MADOCGIA, dg.HOTEN, TO_CHAR(pm.HANTRA, 'DD/MM/YYYY') AS HANTRA, " +
@@ -92,17 +92,16 @@ public class BaoCaoTKDAO {
                    "FROM PHIEUMUON pm " +
                    "JOIN CTPHIEUMUON ctpm ON pm.MAPHIEUMUON = ctpm.MAPHIEUMUON " +
                    "JOIN DOCGIA dg ON pm.MADOCGIA = dg.MADOCGIA " +
-                   "WHERE EXTRACT(MONTH FROM pm.HANTRA) = ? " +
-                   "AND EXISTS ( " +
-                   "    SELECT 1 " +
-                   "    FROM CTPHIEUMUON ctpm_inner " +
-                   "    WHERE ctpm_inner.MAPHIEUMUON = pm.MAPHIEUMUON " +
-                   "    AND ctpm_inner.TRANGTHAI = 0 " +
+                   "WHERE EXISTS ( " +
+                   "   SELECT 1 " +
+                   "   FROM CTPHIEUMUON ctpm_inner " +
+                   "   WHERE ctpm_inner.MAPHIEUMUON = pm.MAPHIEUMUON " +
+                   "   AND ctpm_inner.TRANGTHAI = 0 " + // Điều kiện để lọc các phiếu mượn có sách chưa trả
                    ") " +
+                    "AND TINH_SO_NGAY_TRA_TRE_FUNC(ctpm.MASACH, dg.MADOCGIA) > 0 " +
                    "ORDER BY SONGAYTRETRU DESC";
 
     try (PreparedStatement statement = connection.prepareStatement(query)) {
-        statement.setInt(1, thang);
         ResultSet resultSet = statement.executeQuery();
 
         while (resultSet.next()) {
