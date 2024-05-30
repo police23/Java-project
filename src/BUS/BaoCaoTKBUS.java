@@ -22,7 +22,7 @@ public class BaoCaoTKBUS {
         return baoCaoTKDAO.getTop5SachCoNhieuLuotMuon(thang);
     }
     
-    public List<DocGiaTraTreSachDTO> getDocGiaTraTreSach(int thang) {
-        return baoCaoTKDAO.getDocGiaTraTreSach(thang);
+    public List<DocGiaTraTreSachDTO> getDocGiaTraTreSach() {
+        return baoCaoTKDAO.getDocGiaTraTreSach();
     }
 }
