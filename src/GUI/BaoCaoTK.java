@@ -68,7 +68,7 @@ public class BaoCaoTK extends javax.swing.JPanel {
         Dtm2.addColumn("Họ tên");
         Dtm2.addColumn("Hạn trả");
         Dtm2.addColumn("Số ngày trả trễ");
-        LoadThangThang();
+
        
     }
     // Dua du lieu Thang vao trong combobox
@@ -86,12 +86,7 @@ public class BaoCaoTK extends javax.swing.JPanel {
         }
     }
     
-    public void LoadThangThang() {
-        cbb_ThangThang.removeAllItems();
-        for (int i = 1; i <= 12; i++) {
-            cbb_ThangThang.addItem("Tháng " + i);
-        }
-    }
+    
 
     // Dua du lieu vao table
     private void loadDataToTable(JTable table, List<?> data) {
@@ -149,8 +144,6 @@ public class BaoCaoTK extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jLabel6 = new javax.swing.JLabel();
-        cbb_ThangThang = new javax.swing.JComboBox<>();
         btn_XemXem = new javax.swing.JButton();
         btn_InIn = new javax.swing.JButton();
 
@@ -441,16 +434,6 @@ public class BaoCaoTK extends javax.swing.JPanel {
         jTable1.setPreferredSize(new java.awt.Dimension(225, 100));
         jScrollPane1.setViewportView(jTable1);
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel6.setText("Theo tháng : ");
-
-        cbb_ThangThang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbb_ThangThang.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbb_ThangThangActionPerformed(evt);
-            }
-        });
-
         btn_XemXem.setText("Xem");
         btn_XemXem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -473,18 +456,11 @@ public class BaoCaoTK extends javax.swing.JPanel {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(76, 76, 76)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbb_ThangThang, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_InIn, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_XemXem, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(124, Short.MAX_VALUE))
+                    .addComponent(btn_InIn, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_XemXem, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(186, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -493,10 +469,6 @@ public class BaoCaoTK extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbb_ThangThang, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
-                        .addGap(33, 33, 33)
                         .addComponent(btn_XemXem, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(44, 44, 44)
                         .addComponent(btn_InIn, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -573,8 +545,8 @@ public class BaoCaoTK extends javax.swing.JPanel {
     private void btn_XemXemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_XemXemActionPerformed
         // TODO add your handling code here:
         
-        int thang = cbb_ThangThang.getSelectedIndex() + 1;
-    List<DocGiaTraTreSachDTO> TraTreSach = BaoCaoTKBUS.getDocGiaTraTreSach(thang);
+        
+    List<DocGiaTraTreSachDTO> TraTreSach = BaoCaoTKBUS.getDocGiaTraTreSach();
 
     if (TraTreSach.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Không tìm thấy dữ liệu", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
@@ -597,18 +569,13 @@ public class BaoCaoTK extends javax.swing.JPanel {
 
     private void btn_InInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_InInActionPerformed
         // TODO add your handling code here:
-        generatePDF(jTable1, "Report_TraTreSach.pdf",cbb_ThangThang);
+        generatePDFWithoutMonth(jTable1, "Report_TraTreSach.pdf");
     }//GEN-LAST:event_btn_InInActionPerformed
 
     private void cbb_MonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_MonthActionPerformed
         // TODO add your handling code here:
         resetTableData();
     }//GEN-LAST:event_cbb_MonthActionPerformed
-
-    private void cbb_ThangThangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_ThangThangActionPerformed
-        // TODO add your handling code here:
-        resetTableData();
-    }//GEN-LAST:event_cbb_ThangThangActionPerformed
 
      // In file BaoCaoTK ra PDF
     private void generatePDF(JTable table, String fileName, JComboBox<String> comboBox) {
@@ -645,18 +612,85 @@ public class BaoCaoTK extends javax.swing.JPanel {
         if (jTabbedPane2.getSelectedIndex() == 0) {
             int selectedMonth = comboBox.getSelectedIndex() + 1;
             selectedMonthText = "Số lượt mượn sách theo tháng của từng thể loại sách (" + " Tháng " + selectedMonth +" /2024" +" )";
-        } else if (jTabbedPane2.getSelectedIndex() == 1) {
+        } else  {
             int selectedMonth = comboBox.getSelectedIndex() + 1;
             selectedMonthText = "Top 5 quyển sách được mượn nhiều nhất theo tháng (" +" Tháng " + selectedMonth +" /2024" + ")";
-        } else{
-            int selectedMonth = comboBox.getSelectedIndex() + 1;
-            selectedMonthText = "Độc giả trễ hẹn trả sách (" +" Tháng " + selectedMonth +" /2024" + ")";
-        }
+        } 
 
         // Create a cell for the subtitle with background color and border
         PdfPCell subtitleCell = new PdfPCell(new Phrase(selectedMonthText, fontTitle));
         subtitleCell.setBackgroundColor(new BaseColor(51, 153, 0));
 
+        subtitleCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        subtitleCell.setPadding(10);
+        titleTable.addCell(subtitleCell);
+
+        // Add the title table to the document
+        document.add(titleTable);
+
+        // Add some space after the title
+        document.add(Chunk.NEWLINE);
+
+        PdfPTable pdfTable = new PdfPTable(table.getColumnCount());
+
+        // Adding table headers
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            PdfPCell header = new PdfPCell(new Phrase(table.getColumnName(i), fontNormal));
+            header.setHorizontalAlignment(Element.ALIGN_CENTER);
+            pdfTable.addCell(header);
+        }
+
+        // Adding table rows
+        for (int rows = 0; rows < table.getRowCount(); rows++) {
+            for (int cols = 0; cols < table.getColumnCount(); cols++) {
+                PdfPCell cell = new PdfPCell(new Phrase(table.getModel().getValueAt(rows, cols).toString(), fontNormal));
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                pdfTable.addCell(cell);
+            }
+        }
+
+        document.add(pdfTable);
+        document.close();
+        JOptionPane.showMessageDialog(this, "Xuất file PDF thành công!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        Desktop.getDesktop().open(new File(fileName));
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Có lỗi khi xuất file PDF: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+    
+    // In file BaoCaoTK ra PDF không cần chọn tháng
+private void generatePDFWithoutMonth(JTable table, String fileName) {
+    if (table.getRowCount() == 0) {
+        JOptionPane.showMessageDialog(this, "Không có dữ liệu để xuất PDF", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        return;
+    }
+
+    try {
+        Document document = new Document();
+        PdfWriter.getInstance(document, new FileOutputStream(fileName));
+        document.open();
+
+        // Load the custom font that supports Vietnamese characters
+        String fontPath = "C:\\Users\\ADMIN\\OneDrive\\Documents\\Java_Project_Final\\Java-project\\src\\fonts\\vuArial.ttf";
+        BaseFont baseFont = BaseFont.createFont(fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        Font fontTitle = new Font(baseFont, 20, Font.BOLD, BaseColor.WHITE);
+        Font fontNormal = new Font(baseFont, 12, Font.NORMAL);
+
+        // Create a table for the title
+        PdfPTable titleTable = new PdfPTable(1);
+        titleTable.setWidthPercentage(80);
+
+        // Create a cell for the title with background color and border
+        PdfPCell titleCell = new PdfPCell(new Phrase("Thư viện", fontTitle));
+        titleCell.setBackgroundColor(new BaseColor(51, 153, 0));
+        titleCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        titleCell.setPadding(10);
+        titleTable.addCell(titleCell);
+
+        // Create a cell for the subtitle with background color and border
+        PdfPCell subtitleCell = new PdfPCell(new Phrase("Độc giả trễ hẹn trả sách", fontTitle));
+        subtitleCell.setBackgroundColor(new BaseColor(51, 153, 0));
         subtitleCell.setHorizontalAlignment(Element.ALIGN_CENTER);
         subtitleCell.setPadding(10);
         titleTable.addCell(subtitleCell);
@@ -705,13 +739,11 @@ public class BaoCaoTK extends javax.swing.JPanel {
     private javax.swing.JButton btn_XemXem;
     private javax.swing.JComboBox<String> cbb_Month;
     private javax.swing.JComboBox<String> cbb_Thang;
-    private javax.swing.JComboBox<String> cbb_ThangThang;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
