@@ -32,8 +32,8 @@ public class CTPhat extends javax.swing.JFrame {
         labelNguoiTao.setText(pp.getMaTT());
         Date today = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String NgayTra = dateFormat.format(new java.sql.Date(today.getTime()));
-        labelNgayPhat.setText(NgayTra);
+        String NgayPhat= dateFormat.format(pp.getNgayLap());
+        labelNgayPhat.setText(NgayPhat);
         var PhieuPhatDAO = new PhieuPhatDAO();
         List<PhieuPhat.CTPhieuPhat> ct = PhieuPhatDAO.getCTPP(pp.getMaPP());
         DefaultTableModel model = (DefaultTableModel) tableCTPP.getModel();
@@ -43,9 +43,9 @@ public class CTPhat extends javax.swing.JFrame {
         double TongTienPhat = 0;
         for (PhieuPhat.CTPhieuPhat c : ct) {
             if (c.getLiDo() == 1) {
-                LiDo = "Quá hạn trả sách (" + PhieuPhatDAO.tinhSoNgayTraTre(c.getMaSach(), pp.getMaDG()) + " ngày)";
+                LiDo = "Quá hạn trả sách";
             } else if (c.getLiDo() == 2) {
-                LiDo = "Mất sách";
+                LiDo = "Làm hư hỏng/mất sách";
             }
              model.addRow(new Object[]{c.getMaSach(), c.getTenSach(), LiDo , c.getTienPhat()});
              TongTienPhat += c.getTienPhat();

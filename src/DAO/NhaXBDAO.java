@@ -209,6 +209,23 @@ public class NhaXBDAO {
 
         return hasReferences;
     }
+    public boolean checkTenNXBExists(String tenNXB) {
+    Connection conn = JDBCConnection.getJDBCConnection();
+    String sql = "SELECT COUNT(*) FROM NHAXUATBAN WHERE TENNXB = ?";
+    try (PreparedStatement pst = conn.prepareStatement(sql)) {
+        pst.setString(1, tenNXB);
+        try (ResultSet rs = pst.executeQuery()) {
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return count > 0;
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return false;
+}
+
     public NhaXB getNXBByMa(String maNXB) {
     for (NhaXB nxb : getAllNXB()) {
         if (nxb.getMaNXB().equals(maNXB)) {

@@ -99,7 +99,7 @@ public class ThemPP extends javax.swing.JFrame {
         ComboBox_LiDo.removeAllItems();
         ComboBox_LiDo.addItem("--Chọn lí do phạt--");
         ComboBox_LiDo.addItem("Quá hạn");
-        ComboBox_LiDo.addItem("Mất sách");
+        ComboBox_LiDo.addItem("Làm hư hỏng/mất sách");
         return true;
     }
     
@@ -438,7 +438,7 @@ public class ThemPP extends javax.swing.JFrame {
                 if ("Quá hạn".equals(liDo)) {
                     tienphat = ppDAO.tinhTienPhatTraTre(maSach, ComboBox_MaDG.getSelectedItem().toString());
                     maLiDo = 1;
-                } else if ("Mất sách".equals(liDo)) {
+                } else if ("Làm hư hỏng/mất sách".equals(liDo)) {
                     tienphat = ppDAO.tinhTienPhatMatSach(maSach);
                     maLiDo = 2;
                 }

@@ -43,7 +43,7 @@ public class BookBUS {
     public void deleteBook(String id) throws SQLException {
         BookDAO.deleteBook(id);
     }
-    public void updateBook(Book bk) {
+    public void updateBook(Book bk) throws SQLException {
         BookDAO.updateBook(bk);
     }
     public List<Book> searchBookByID(String query) {

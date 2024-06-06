@@ -156,7 +156,7 @@ public class BookDAO {
             }
         }
     }
-    public void deleteBook( String ID) throws SQLException {
+    public void deleteBook(String ID) throws SQLException {
         Connection conn = JDBCConnection.getJDBCConnection();
         String sql = "{call XOASACH_PROC(?)}";
         try (CallableStatement cst = conn.prepareCall(sql)) {
@@ -165,17 +165,11 @@ public class BookDAO {
             System.out.println(rs);
         } catch (SQLException e) {
             throw e;
-        } finally {
-            try {
-                if (conn != null) conn.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
         }
-}
-    public void updateBook(Book bo) {
+        }
+      public void updateBook(Book bo) throws SQLException {
         Connection conn = JDBCConnection.getJDBCConnection();
-        String sql = "{call CAPNHATSACH_PROC(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}"; // Gọi stored procedure
+        String sql = "{call CAPNHATSACH_PROC(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}"; 
         try (CallableStatement cst = conn.prepareCall(sql)) {
             cst.setString(1, bo.getMaSach());
             cst.setString(2, bo.getTenSach());
@@ -190,9 +184,11 @@ public class BookDAO {
             int rs = cst.executeUpdate();
             System.out.println(rs);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw e;
+           
         }
     }
+       
     
     public List<Book> searchBookByID(String query) {
     List<Book> bks = new ArrayList<Book>();
@@ -204,7 +200,7 @@ public class BookDAO {
                  "WHERE MASACH LIKE ?";
     try {
         PreparedStatement ps = conn.prepareStatement(sql);
-        String searchQuery = "%" + query + "%"; // The '%' is a wildcard character that matches any number of characters
+        String searchQuery = "%" + query + "%";
         ps.setString(1, searchQuery);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
@@ -238,7 +234,7 @@ public class BookDAO {
                  "WHERE TENSACH LIKE ?";
     try {
         PreparedStatement ps = conn.prepareStatement(sql);
-        String searchQuery = "%" + query + "%"; // The '%' is a wildcard character that matches any number of characters
+        String searchQuery = "%" + query + "%"; 
         ps.setString(1, searchQuery);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {

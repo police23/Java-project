@@ -188,7 +188,7 @@ public class LoginForm extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Email not found in the database.");
             }
         }*/
-        String email = JOptionPane.showInputDialog(this, "Enter your email address:");
+        String email = JOptionPane.showInputDialog(this, "Nhập địa chỉ email :");
         if (email != null && !email.isEmpty()) {
         if (isEmailExists(email)) {
             // Generate OTP

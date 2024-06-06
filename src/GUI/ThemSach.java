@@ -457,7 +457,8 @@ public class ThemSach extends javax.swing.JFrame {
             boolean idExists = BookBUS.checkBookIdExists(maSach);
     
         if (idExists) {
-        JOptionPane.showMessageDialog(this, "Mã sách đã tồn tại", "Lỗi", JOptionPane.ERROR_MESSAGE);}
+        JOptionPane.showMessageDialog(this, "Mã sách đã tồn tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return;}
         else {
             String tenTheLoai = ComboBox_TheLoai.getSelectedItem().toString();
             String tenNXB = ComboBox_NXB.getSelectedItem().toString();

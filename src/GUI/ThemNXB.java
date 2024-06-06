@@ -228,18 +228,21 @@ public class ThemNXB extends javax.swing.JFrame {
             //if (idExists) {
                 //JOptionPane.showMessageDialog(this, "Mã NXB đã tồn tại", "Lỗi", JOptionPane.ERROR_MESSAGE);}
             
-                NhaXB nxb = new NhaXB(); // Khởi tạo một đối tượng mới
+                NhaXB nxb = new NhaXB();
                 //nxb.setMaNXB(txtMaNXB.getText());
                 nxb.setTenNXB(txtTenNXB.getText());
                 nxb.setDiaChi(txtDiaChiNXB.getText());
                 nxb.setSDT(txtSDT.getText());
+                boolean tenNXBExists = NhaXBBUS.checkTenNXBExists(txtTenNXB.getText());
+                if (tenNXBExists) {
+                    JOptionPane.showMessageDialog(this, "Nhà xuất bản đã tồn tại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    return;
+        }
                 NhaXBBUS.addNXB(nxb);
                 JOptionPane.showMessageDialog(this, "Thêm nhà xuất bản thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 qlnxb.updateTable();
             }
-
-            this.dispose(); // Đóng cửa sổ
-        
+            this.dispose();     
     }//GEN-LAST:event_btnOKActionPerformed
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed

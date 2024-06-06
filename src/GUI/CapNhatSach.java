@@ -413,6 +413,7 @@ public class CapNhatSach extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, noti, "Thông báo", JOptionPane.WARNING_MESSAGE);
         }
         else {
+            try {
             Book upbk = new Book();
             String tenTheLoai = ComboBox_TheLoai.getSelectedItem().toString();
             String tenNXB = ComboBox_NXB.getSelectedItem().toString();
@@ -422,7 +423,7 @@ public class CapNhatSach extends javax.swing.JFrame {
             upbk.setTenSach(txtTenSach.getText());
             upbk.setTacGia(txtTacGia.getText());
             upbk.setSoLuong((int) spinSoLuong.getValue());
-            int soTrang = Integer.parseInt(txtSoTrang.getText()); // Chuyển đổi chuỗi văn bản sang kiểu int
+            int soTrang = Integer.parseInt(txtSoTrang.getText());
             upbk.setSoTrang(soTrang);
             int NamXB = Integer.parseInt(ComboBox_NamXB.getSelectedItem().toString());
             upbk.setNamXB(NamXB);
@@ -432,7 +433,10 @@ public class CapNhatSach extends javax.swing.JFrame {
             upbk.setMaNXB(maNXB);
             BookBUS.updateBook(upbk);
             JOptionPane.showMessageDialog(this, "Cập nhật thông tin sách thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            qls.updateTable();
+            qls.updateTable(); 
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Lỗi: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
     }
          this.dispose(); 
 

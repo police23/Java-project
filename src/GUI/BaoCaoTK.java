@@ -506,7 +506,7 @@ public class BaoCaoTK extends javax.swing.JPanel {
     
         if (top5Sach.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Không tìm thấy dữ liệu", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            Dtm2.setRowCount(0);
+           
         } else {
             loadDataToTable(jTable3, top5Sach);
         }
@@ -521,9 +521,9 @@ public class BaoCaoTK extends javax.swing.JPanel {
     DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
     DefaultTableModel model1 = (DefaultTableModel) jTable3.getModel();
     DefaultTableModel model2 = (DefaultTableModel) jTable1.getModel();
-    model.setRowCount(0); // Xóa tất cả các hàng hiện tại
-    model1.setRowCount(0); // Xóa tất cả các hàng hiện tại
-    model2.setRowCount(0); // Xóa tất cả các hàng hiện tại
+    model.setRowCount(0); 
+    model1.setRowCount(0); 
+    model2.setRowCount(0);
 
 
 }
@@ -535,6 +535,7 @@ public class BaoCaoTK extends javax.swing.JPanel {
 
         if (luotMuonTheoTheLoai.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Không tìm thấy dữ liệu", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+           
         } else {
             loadDataToTable(jTable2, luotMuonTheoTheLoai);
         }
@@ -552,20 +553,22 @@ public class BaoCaoTK extends javax.swing.JPanel {
     List<DocGiaTraTreSachDTO> TraTreSach = BaoCaoTKBUS.getDocGiaTraTreSach();
 
     if (TraTreSach.isEmpty()) {
+        
         JOptionPane.showMessageDialog(this, "Không tìm thấy dữ liệu", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        Dtm2.setRowCount(0);
     } else {
-        // Sử dụng Set để lưu trữ mã độc giả đã xuất hiện
+        
         Set<String> uniqueMaDocGia = new HashSet<>();
         List<DocGiaTraTreSachDTO> uniqueTraTreSach = new ArrayList<>();
 
-        // Duyệt qua danh sách và chỉ thêm bản ghi nếu mã độc giả chưa tồn tại trong Set
+        
         for (DocGiaTraTreSachDTO dto : TraTreSach) {
             if (uniqueMaDocGia.add(dto.getMaDocGia())) {
                 uniqueTraTreSach.add(dto);
             }
         }
 
-        // Hiển thị dữ liệu đã lọc vào bảng
+        
         loadDataToTable(jTable1, uniqueTraTreSach);
     }
     }//GEN-LAST:event_btn_XemXemActionPerformed
@@ -580,7 +583,7 @@ public class BaoCaoTK extends javax.swing.JPanel {
         resetTableData();
     }//GEN-LAST:event_cbb_MonthActionPerformed
 
-     // In file BaoCaoTK ra PDF
+     
     private void generatePDF(JTable table, String fileName, JComboBox<String> comboBox) {
     if (table.getRowCount() == 0) {
         JOptionPane.showMessageDialog(this, "Không có dữ liệu để xuất PDF", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
@@ -592,17 +595,17 @@ public class BaoCaoTK extends javax.swing.JPanel {
         PdfWriter.getInstance(document, new FileOutputStream(fileName));
         document.open();
 
-        // Load the custom font that supports Vietnamese characters
+        
         String fontPath = "D:\\Java project\\clone\\Java-project\\src\\fonts\\vuArial.ttf";
         BaseFont baseFont = BaseFont.createFont(fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         Font fontTitle = new Font(baseFont, 20, Font.BOLD, BaseColor.WHITE);
         Font fontNormal = new Font(baseFont, 12, Font.NORMAL);
 
-        // Create a table for the title
+        
         PdfPTable titleTable = new PdfPTable(1);
         titleTable.setWidthPercentage(80);
 
-        // Create a cell for the title with background color and border
+        
         PdfPCell titleCell = new PdfPCell(new Phrase("Thư viện", fontTitle));
         titleCell.setBackgroundColor(new BaseColor(51, 153, 0));
 
@@ -610,7 +613,7 @@ public class BaoCaoTK extends javax.swing.JPanel {
         titleCell.setPadding(10);
         titleTable.addCell(titleCell);
 
-        // Determine the subtitle based on the selected tab
+        
         String selectedMonthText;
         if (jTabbedPane2.getSelectedIndex() == 0) {
             int selectedMonth = comboBox.getSelectedIndex() + 1;
@@ -628,22 +631,22 @@ public class BaoCaoTK extends javax.swing.JPanel {
         subtitleCell.setPadding(10);
         titleTable.addCell(subtitleCell);
 
-        // Add the title table to the document
+        
         document.add(titleTable);
 
-        // Add some space after the title
+        
         document.add(Chunk.NEWLINE);
 
         PdfPTable pdfTable = new PdfPTable(table.getColumnCount());
 
-        // Adding table headers
+        
         for (int i = 0; i < table.getColumnCount(); i++) {
             PdfPCell header = new PdfPCell(new Phrase(table.getColumnName(i), fontNormal));
             header.setHorizontalAlignment(Element.ALIGN_CENTER);
             pdfTable.addCell(header);
         }
 
-        // Adding table rows
+        
         for (int rows = 0; rows < table.getRowCount(); rows++) {
             for (int cols = 0; cols < table.getColumnCount(); cols++) {
                 PdfPCell cell = new PdfPCell(new Phrase(table.getModel().getValueAt(rows, cols).toString(), fontNormal));
@@ -662,7 +665,7 @@ public class BaoCaoTK extends javax.swing.JPanel {
     }
 }
     
-    // In file BaoCaoTK ra PDF không cần chọn tháng
+    
 private void generatePDFWithoutMonth(JTable table, String fileName) {
     if (table.getRowCount() == 0) {
         JOptionPane.showMessageDialog(this, "Không có dữ liệu để xuất PDF", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
@@ -674,25 +677,25 @@ private void generatePDFWithoutMonth(JTable table, String fileName) {
         PdfWriter.getInstance(document, new FileOutputStream(fileName));
         document.open();
 
-        // Load the custom font that supports Vietnamese characters
-        String fontPath = "C:\\Users\\ADMIN\\OneDrive\\Documents\\Java_Project_Final\\Java-project\\src\\fonts\\vuArial.ttf";
+        
+        String fontPath = "D:\\Java project\\clone\\Java-project\\src\\fonts\\vuArial.ttf";
         BaseFont baseFont = BaseFont.createFont(fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         Font fontTitle = new Font(baseFont, 20, Font.BOLD, BaseColor.WHITE);
         Font fontNormal = new Font(baseFont, 12, Font.NORMAL);
 
-        // Create a table for the title
+        
         PdfPTable titleTable = new PdfPTable(1);
         titleTable.setWidthPercentage(80);
 
-        // Create a cell for the title with background color and border
+        
         PdfPCell titleCell = new PdfPCell(new Phrase("Thư viện", fontTitle));
         titleCell.setBackgroundColor(new BaseColor(51, 153, 0));
         titleCell.setHorizontalAlignment(Element.ALIGN_CENTER);
         titleCell.setPadding(10);
         titleTable.addCell(titleCell);
 
-        // Create a cell for the subtitle with background color and border
-        PdfPCell subtitleCell = new PdfPCell(new Phrase("Độc giả trễ hẹn trả sách", fontTitle));
+       
+        PdfPCell subtitleCell = new PdfPCell(new Phrase("Độc giả trễ hạn trả sách", fontTitle));
         subtitleCell.setBackgroundColor(new BaseColor(51, 153, 0));
         subtitleCell.setHorizontalAlignment(Element.ALIGN_CENTER);
         subtitleCell.setPadding(10);

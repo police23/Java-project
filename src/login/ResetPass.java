@@ -45,7 +45,6 @@ public class ResetPass extends javax.swing.JFrame {
 
         jLabel3.setText("Xác nhận mật khẩu :");
 
-        btnXacNhan.setBackground(new java.awt.Color(204, 255, 204));
         btnXacNhan.setText("Xác nhận");
         btnXacNhan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

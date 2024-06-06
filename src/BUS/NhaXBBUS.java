@@ -58,9 +58,12 @@ public class NhaXBBUS {
     public boolean checkNXBReferences(String MaNXB) {
         return NhaXBDAO.checkNXBReferences(MaNXB);
     }
+     public boolean checkTenNXBExists(String tenNXB) {
+        return NhaXBDAO.checkTenNXBExists(tenNXB);
+     }
      public NhaXB getNXBByMa(String maNXB) {
          return NhaXBDAO.getNXBByMa(maNXB);
-     }
+    }
     
 }
     

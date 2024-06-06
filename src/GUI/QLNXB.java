@@ -240,7 +240,8 @@ public class QLNXB extends javax.swing.JPanel {
         int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc xóa nhà xuất bản này không ?");
         if (confirm == JOptionPane.YES_OPTION) {
             if (hasReferences) {
-            JOptionPane.showMessageDialog(this, "Không thể xóa nhà xuất bản này vẫn còn sách thuộc nhà xuất bản đó");}
+            JOptionPane.showMessageDialog(this, "Không thể xóa nhà xuất bản này vẫn còn sách thuộc nhà xuất bản đó");
+            }
             else {
                 nhaXBBUS.deleteNXB(MaNXB);
                 JOptionPane.showMessageDialog(this, "Xóa nhà xuất bản thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
