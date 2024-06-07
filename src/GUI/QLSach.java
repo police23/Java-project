@@ -325,16 +325,13 @@ public class QLSach extends javax.swing.JPanel {
         if (confirm == JOptionPane.YES_OPTION) {
             try {
             String MaSach = String.valueOf(String.valueOf(tableSach.getValueAt(row,0)));
-           // BookBUS BookBUS = new BookBUS();
+           // BookBUS Boo = new BookBUS();
             BookBUS.deleteBook(MaSach);
             JOptionPane.showMessageDialog(this, "Xóa sách thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             updateTable();   
         }
-            catch (SQLException ex) {
-                
-            if (ex.getErrorCode() == 20002) {
-                JOptionPane.showMessageDialog(null,"Không thể xóa do còn độc giả đang mượn sách này","Lỗi",JOptionPane.ERROR_MESSAGE);
-        }
+            catch (SQLException ex) {              
+                JOptionPane.showMessageDialog(null,ex.getMessage(),"Lỗi",JOptionPane.ERROR_MESSAGE);
         }
             }
     }//GEN-LAST:event_btnXoaActionPerformed

@@ -300,10 +300,12 @@ public class DKMuonSach extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null,"Độc giả đã đăng ký mượn sách trước đó","Lỗi",JOptionPane.ERROR_MESSAGE);
             } else if (e.getErrorCode() == 20002) {
                 JOptionPane.showMessageDialog(null,"Độc giả chưa trả hết sách","Lỗi",JOptionPane.ERROR_MESSAGE);
-            return; 
+            }
+                else {
+                    JOptionPane.showMessageDialog(null,e.getMessage(),"Lỗi",JOptionPane.ERROR_MESSAGE); 
+                    } 
         }
         }
-         }
     }//GEN-LAST:event_btnDKMuonActionPerformed
 
     private void btnCTSachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCTSachActionPerformed

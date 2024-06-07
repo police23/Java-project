@@ -50,17 +50,17 @@ public class PhieuMuonDAO {
         CallableStatement cstmt = null;
     try {
         // Create a CallableStatement object.
-        String SQL = "{call THEMPHIEUMUON_PROC(?,?,?,?,?)}";
+        String SQL = "{call THEMPHIEUMUON_PROC(?,?,?,?)}";
         cstmt = conn.prepareCall(SQL);
         
         cstmt.setString(1, pm.getMaTT());
         cstmt.setString(2, pm.getMaDG());
-        cstmt.setDate(3, new java.sql.Date(pm.getNgayLap().getTime()));
-        cstmt.setDate(4, new java.sql.Date(pm.getHanTra().getTime()));
-        // Convert list of book IDs to an oracle.sql.ARRAY
+        //cstmt.setDate(3, new java.sql.Date(pm.getNgayLap().getTime()));
+        cstmt.setDate(3, new java.sql.Date(pm.getHanTra().getTime()));
+        
         ArrayDescriptor descriptor = ArrayDescriptor.createDescriptor("SACH_LIST", conn);
         ARRAY array = new ARRAY(descriptor, conn, maSachArray);
-        cstmt.setArray(5, array);
+        cstmt.setArray(4, array);
         cstmt.execute();
     } catch (SQLException ex) {
         ex.printStackTrace();
