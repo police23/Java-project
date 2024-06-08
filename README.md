@@ -7,10 +7,10 @@
 ## THÀNH VIÊN NHÓM
 |STT| MSSV      | Họ và Tên             |Chức Vụ    | Github                                                  | Email                   |
 |:-:|:---------:| ----------------------|-----------|:--------------------------------------------------------|:------------------------:
-| 1 | 22521311  | Hà Xuân Bắc           |Nhóm trưởng|[j3un3t0nas](https://github.com/j3un3t0nas)              |22521311@gm.uit.edu.vn   |
+| 1 | 22520088  | Hà Xuân Bắc           |Nhóm trưởng|[police23](https://github.com/police23)                  |22520088@gm.uit.edu.vn   |
 | 2 | 22521679  | Nguyễn Tường Vĩnh     |Thành viên |[vicky0405](https://github.com/vicky0405)                |22521679@gm.uit.edu.vn   |
-| 3 | 22521102  | Dương Quốc Anh        |Thành viên |[michael5671](https://github.com/michael5671)            |22521102@gm.uit.edu.vn   |
-| 4 | 22521141  | Võ Quốc Huy           |Thành viên |[merzp23](https://github.com/merzp23)                    |22521141@gm.uit.edu.vn   |
+| 3 | 22520043  | Dương Quốc Anh        |Thành viên |[Invisi2803](https://github.com/Invisi2803)              |22520043@gm.uit.edu.vn   |
+| 4 | 22520586  | Võ Quốc Huy           |Thành viên |[huydamme](https://github.com/huydamme)                  |22520586@gm.uit.edu.vn   |
 
 
 ## HƯỚNG DẪN CÀI ĐẶT CHƯƠNG TRÌNH
