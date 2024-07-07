@@ -476,6 +476,7 @@ public class ThemSach extends javax.swing.JFrame {
             book.setMaTheLoai(maTheLoai);
             book.setMaNXB(maNXB);
             BookBUS.addBook(book);
+            JOptionPane.showMessageDialog(this, "Thêm sách thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             qls.updateTable();
     }
          this.dispose(); 

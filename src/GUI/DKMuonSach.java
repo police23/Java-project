@@ -293,6 +293,8 @@ public class DKMuonSach extends javax.swing.JPanel {
             dkMuonDAO.addDK(dkmuon, maSachArray);
             JOptionPane.showMessageDialog(null,"Đăng ký mượn sách thành công");
             updateTable();
+            model.setRowCount(0);
+           
         } catch (SQLException e) {
             if (e.getErrorCode() == 20001) {
                 JOptionPane.showMessageDialog(null,"Độc giả đã đăng ký mượn sách trước đó","Lỗi",JOptionPane.ERROR_MESSAGE);

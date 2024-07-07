@@ -84,9 +84,8 @@ public class CTDKMuon extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        btnHuyDK.setBackground(new java.awt.Color(255, 51, 0));
-        btnHuyDK.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnHuyDK.setForeground(new java.awt.Color(255, 255, 255));
+        btnHuyDK.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnHuyDK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-unsubscribe-24.png"))); // NOI18N
         btnHuyDK.setText("Hủy đăng ký");
         btnHuyDK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,9 +93,8 @@ public class CTDKMuon extends javax.swing.JFrame {
             }
         });
 
-        btnDong.setBackground(new java.awt.Color(0, 102, 102));
-        btnDong.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnDong.setForeground(new java.awt.Color(255, 255, 255));
+        btnDong.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnDong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-cancel-24.png"))); // NOI18N
         btnDong.setText("Đóng");
         btnDong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,8 +123,8 @@ public class CTDKMuon extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnDong, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(90, 90, 90)
-                .addComponent(btnHuyDK, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(141, 141, 141))
+                .addComponent(btnHuyDK, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(125, 125, 125))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)

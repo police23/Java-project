@@ -331,6 +331,7 @@ public class QLSach extends javax.swing.JPanel {
             updateTable();   
         }
             catch (SQLException ex) {
+                
             if (ex.getErrorCode() == 20002) {
                 JOptionPane.showMessageDialog(null,"Không thể xóa do còn độc giả đang mượn sách này","Lỗi",JOptionPane.ERROR_MESSAGE);
         }

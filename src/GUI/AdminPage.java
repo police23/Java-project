@@ -272,7 +272,7 @@ public class AdminPage extends javax.swing.JFrame {
         jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-search-account-30 (1).png"))); // NOI18N
-        jLabel18.setText("Quản lý người dùng");
+        jLabel18.setText("Quản lý tài khoản");
 
         javax.swing.GroupLayout btnQLNguoiDungLayout = new javax.swing.GroupLayout(btnQLNguoiDung);
         btnQLNguoiDung.setLayout(btnQLNguoiDungLayout);
@@ -356,7 +356,7 @@ public class AdminPage extends javax.swing.JFrame {
         jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
         jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user (2).png"))); // NOI18N
-        jLabel19.setText("Thông tin tài khoản");
+        jLabel19.setText("Thông tin người dùng");
 
         javax.swing.GroupLayout btnThongTinTKLayout = new javax.swing.GroupLayout(btnThongTinTK);
         btnThongTinTK.setLayout(btnThongTinTKLayout);
@@ -365,7 +365,7 @@ public class AdminPage extends javax.swing.JFrame {
             .addGroup(btnThongTinTKLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel19)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         btnThongTinTKLayout.setVerticalGroup(
             btnThongTinTKLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

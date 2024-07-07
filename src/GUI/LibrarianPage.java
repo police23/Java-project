@@ -277,7 +277,7 @@ public class LibrarianPage extends javax.swing.JFrame {
         jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user (2).png"))); // NOI18N
-        jLabel18.setText("Thông tin tài khoản");
+        jLabel18.setText("Thông tin người dùng");
 
         javax.swing.GroupLayout btnThongTinTKLayout = new javax.swing.GroupLayout(btnThongTinTK);
         btnThongTinTK.setLayout(btnThongTinTKLayout);

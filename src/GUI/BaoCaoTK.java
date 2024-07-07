@@ -45,11 +45,11 @@ public class BaoCaoTK extends javax.swing.JPanel {
     public BaoCaoTK() {
         initComponents();
         // Khoi tao table
-
         BaoCaoTKBUS= new BaoCaoTKBUS();
         
         Dtm = new DefaultTableModel();
         jTable2.setModel(Dtm);
+        jTable2.setRowHeight(35);
         Dtm.addColumn("Mã thể loại");
         Dtm.addColumn("Tên thể loại");
         Dtm.addColumn("Số lượt mượn");
@@ -57,6 +57,7 @@ public class BaoCaoTK extends javax.swing.JPanel {
         
         Dtm1 = new DefaultTableModel();
         jTable3.setModel(Dtm1);
+        jTable3.setRowHeight(35);
         Dtm1.addColumn("Mã sách");
         Dtm1.addColumn("Tên sách");
         Dtm1.addColumn("Số lượt mượn");
@@ -64,6 +65,7 @@ public class BaoCaoTK extends javax.swing.JPanel {
         
         Dtm2 = new DefaultTableModel();
         jTable1.setModel(Dtm2);
+        jTable1.setRowHeight(35);
         Dtm2.addColumn("Mã độc giả");
         Dtm2.addColumn("Họ tên");
         Dtm2.addColumn("Hạn trả");
@@ -388,7 +390,7 @@ public class BaoCaoTK extends javax.swing.JPanel {
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Độc giả trễ hẹn trả sách ");
+        jLabel3.setText("Độc giả đang giữ sách quá hạn ");
         jLabel3.setMaximumSize(new java.awt.Dimension(584, 32));
         jLabel3.setMinimumSize(new java.awt.Dimension(584, 32));
         jLabel3.setPreferredSize(new java.awt.Dimension(584, 32));
@@ -398,16 +400,16 @@ public class BaoCaoTK extends javax.swing.JPanel {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(265, 265, 265)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(250, 250, 250)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(18, Short.MAX_VALUE)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addGap(16, 16, 16))
         );
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -478,7 +480,7 @@ public class BaoCaoTK extends javax.swing.JPanel {
                         .addContainerGap())))
         );
 
-        jTabbedPane2.addTab("Trả sách trễ hẹn", jPanel5);
+        jTabbedPane2.addTab("Giữ sách quá hạn", jPanel5);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -504,6 +506,7 @@ public class BaoCaoTK extends javax.swing.JPanel {
     
         if (top5Sach.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Không tìm thấy dữ liệu", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            Dtm2.setRowCount(0);
         } else {
             loadDataToTable(jTable3, top5Sach);
         }
@@ -590,7 +593,7 @@ public class BaoCaoTK extends javax.swing.JPanel {
         document.open();
 
         // Load the custom font that supports Vietnamese characters
-        String fontPath = "C:\\Users\\ADMIN\\OneDrive\\Documents\\Java_Project_Final\\Java-project\\src\\fonts\\vuArial.ttf";
+        String fontPath = "D:\\Java project\\clone\\Java-project\\src\\fonts\\vuArial.ttf";
         BaseFont baseFont = BaseFont.createFont(fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         Font fontTitle = new Font(baseFont, 20, Font.BOLD, BaseColor.WHITE);
         Font fontNormal = new Font(baseFont, 12, Font.NORMAL);

@@ -135,9 +135,7 @@ public class CTTra extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tableCTPT);
 
-        btnDong.setBackground(new java.awt.Color(255, 51, 0));
-        btnDong.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnDong.setForeground(new java.awt.Color(255, 255, 255));
+        btnDong.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnDong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-cancel-24.png"))); // NOI18N
         btnDong.setText("Đóng");
         btnDong.addActionListener(new java.awt.event.ActionListener() {

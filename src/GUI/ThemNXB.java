@@ -234,6 +234,7 @@ public class ThemNXB extends javax.swing.JFrame {
                 nxb.setDiaChi(txtDiaChiNXB.getText());
                 nxb.setSDT(txtSDT.getText());
                 NhaXBBUS.addNXB(nxb);
+                JOptionPane.showMessageDialog(this, "Thêm nhà xuất bản thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 qlnxb.updateTable();
             }
 

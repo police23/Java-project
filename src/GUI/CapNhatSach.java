@@ -218,9 +218,7 @@ public class CapNhatSach extends javax.swing.JFrame {
             }
         });
 
-        btnCapNhat.setBackground(new java.awt.Color(0, 204, 51));
-        btnCapNhat.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnCapNhat.setForeground(new java.awt.Color(255, 255, 255));
+        btnCapNhat.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnCapNhat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-save-24 (1).png"))); // NOI18N
         btnCapNhat.setText("Lưu");
         btnCapNhat.addActionListener(new java.awt.event.ActionListener() {
@@ -229,9 +227,7 @@ public class CapNhatSach extends javax.swing.JFrame {
             }
         });
 
-        btnHuy.setBackground(new java.awt.Color(255, 51, 0));
-        btnHuy.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnHuy.setForeground(new java.awt.Color(255, 255, 255));
+        btnHuy.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnHuy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-cancel-24.png"))); // NOI18N
         btnHuy.setText("Hủy");
         btnHuy.addActionListener(new java.awt.event.ActionListener() {
@@ -435,6 +431,7 @@ public class CapNhatSach extends javax.swing.JFrame {
             upbk.setMaTheLoai(maTheLoai);
             upbk.setMaNXB(maNXB);
             BookBUS.updateBook(upbk);
+            JOptionPane.showMessageDialog(this, "Cập nhật thông tin sách thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             qls.updateTable();
     }
          this.dispose(); 

@@ -233,6 +233,7 @@ public class QLTra extends javax.swing.JPanel {
            
             String maPT = tablePhieuTra.getValueAt(row, 0).toString();
             PhieuTraBUS.deletePhieuTra(maPT);
+            JOptionPane.showMessageDialog(this, "Xóa phiếu trả thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             updateTable();
         } 
             

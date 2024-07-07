@@ -49,10 +49,10 @@ public class QLNguoiDung extends javax.swing.JPanel {
                 vaitro = "Admin";
             }
             if (tk.getVaiTro() == 1) {
-                vaitro = "Thủ Thư";
+                vaitro = "Thủ thư";
             }
             if (tk.getVaiTro() == 2) {
-                vaitro = "Độc Giả";
+                vaitro = "Độc giả";
             }
             dtm.addRow(new Object[] {tk.getMaTK(), tk.getHoTen(), vaitro});
         }
@@ -260,6 +260,7 @@ public class QLNguoiDung extends javax.swing.JPanel {
             }
             TaiKhoanBUS tkBUS = new TaiKhoanBUS();
             tkBUS.deleteTaiKhoan(MaTK);
+            JOptionPane.showMessageDialog(this, "Xóa tài khoản thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             updateTable();
         }
     }//GEN-LAST:event_btnXoaActionPerformed

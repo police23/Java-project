@@ -229,14 +229,15 @@ public class QLPhat extends javax.swing.JPanel {
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         int row = tablePhieuPhat.getSelectedRow();
         if (row == -1) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn phiếu trả để xóa.");
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn phiếu phạt để xóa.");
             return;
         }
-        int confirm = JOptionPane.showConfirmDialog(this,"Bạn có chắc xóa phiếu trả này không ? ");
+        int confirm = JOptionPane.showConfirmDialog(this,"Bạn có chắc xóa phiếu phạt này không ? ");
         if (confirm == JOptionPane.YES_OPTION) {
 
             String maPP = tablePhieuPhat.getValueAt(row, 0).toString();
             PhieuPhatBUS.deletePhieuPhat(maPP);
+            JOptionPane.showMessageDialog(this, "Xóa phiếu phạt thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             updateTable();
         }
     }//GEN-LAST:event_btnXoaActionPerformed

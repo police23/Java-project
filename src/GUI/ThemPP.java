@@ -52,6 +52,7 @@ public class ThemPP extends javax.swing.JFrame {
     public ThemPP(QLPhat qlp) {
         initComponents();
         LoadMaDG();
+        tableDSSachPhat.setRowHeight(26);
         ComboBox_Sach.removeAllItems();
         ComboBox_Sach.addItem("--Chọn sách--");
         CurrentUser currentUser = CurrentUser.getInstance();

@@ -151,9 +151,7 @@ public class CTMuon extends javax.swing.JFrame {
         ));
         jScrollPane6.setViewportView(tableCTPM);
 
-        btnDong1.setBackground(new java.awt.Color(255, 51, 0));
-        btnDong1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnDong1.setForeground(new java.awt.Color(255, 255, 255));
+        btnDong1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnDong1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-cancel-24.png"))); // NOI18N
         btnDong1.setText("Đóng");
         btnDong1.addActionListener(new java.awt.event.ActionListener() {

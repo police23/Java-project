@@ -31,7 +31,7 @@ public class BaoCaoTKDAO {
                 + "JOIN CTPHIEUMUON ctpm ON pm.MAPHIEUMUON = ctpm.MAPHIEUMUON "
                 + "JOIN SACH s ON ctpm.MASACH = s.MASACH "
                 + "JOIN THELOAI tl ON s.MATHELOAI = tl.MATHELOAI "
-                + "WHERE ctpm.TRANGTHAI = 0 AND EXTRACT(MONTH FROM pm.NGAYLAP) = ? "
+                + "WHERE EXTRACT(MONTH FROM pm.NGAYLAP) = ? "
                 + "GROUP BY tl.MATHELOAI, tl.TENTHELOAI, TO_CHAR(pm.NGAYLAP, 'MM') "
                 + "ORDER BY tl.MATHELOAI";
 
@@ -60,7 +60,7 @@ public class BaoCaoTKDAO {
                 + "FROM PHIEUMUON pm "
                 + "JOIN CTPHIEUMUON ctpm ON pm.MAPHIEUMUON = ctpm.MAPHIEUMUON "
                 + "JOIN SACH s ON ctpm.MASACH = s.MASACH "
-                + "WHERE ctpm.TRANGTHAI = 0 AND EXTRACT(MONTH FROM pm.NGAYLAP) = ? "
+                + "WHERE EXTRACT(MONTH FROM pm.NGAYLAP) = ? "
                 + "GROUP BY s.MASACH, s.TENSACH, TO_CHAR(pm.NGAYLAP, 'MM') "
                 + "ORDER BY SO_LUOT_MUON DESC "
                 + "FETCH FIRST 5 ROWS ONLY";
@@ -96,7 +96,7 @@ public class BaoCaoTKDAO {
                    "   SELECT 1 " +
                    "   FROM CTPHIEUMUON ctpm_inner " +
                    "   WHERE ctpm_inner.MAPHIEUMUON = pm.MAPHIEUMUON " +
-                   "   AND ctpm_inner.TRANGTHAI = 0 " + // Điều kiện để lọc các phiếu mượn có sách chưa trả
+                   "   AND ctpm_inner.TRANGTHAI = 0 " + 
                    ") " +
                     "AND TINH_SO_NGAY_TRA_TRE_FUNC(ctpm.MASACH, dg.MADOCGIA) > 0 " +
                    "ORDER BY SONGAYTRETRU DESC";

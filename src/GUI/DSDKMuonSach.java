@@ -296,6 +296,8 @@ public class DSDKMuonSach extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this,"Xác nhận cho mượn sách thành công ");
                 updateTable();
                 qlpm.updateTable();
+                dtmCTDK.setRowCount(0);
+                
                 
             }
             catch (SQLException e) {

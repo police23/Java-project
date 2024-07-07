@@ -256,6 +256,7 @@ public class QLMuon extends javax.swing.JPanel {
             try {
             String maPM = tablePhieuMuon.getValueAt(row, 0).toString();
             PhieuMuonBUS.deletePhieuMuon(maPM);
+            JOptionPane.showMessageDialog(this, "Xóa phiếu mượn thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             updateTable();
         } catch (SQLException ex) {
             if (ex.getErrorCode() == 20001) {

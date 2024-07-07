@@ -156,7 +156,7 @@ public class BookDAO {
             }
         }
     }
-    public void deleteBook( String ID) {
+    public void deleteBook( String ID) throws SQLException {
         Connection conn = JDBCConnection.getJDBCConnection();
         String sql = "{call XOASACH_PROC(?)}";
         try (CallableStatement cst = conn.prepareCall(sql)) {
@@ -164,7 +164,7 @@ public class BookDAO {
             int rs = cst.executeUpdate(); 
             System.out.println(rs);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw e;
         } finally {
             try {
                 if (conn != null) conn.close();

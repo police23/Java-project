@@ -82,14 +82,14 @@ public class CapNhatPM extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("GIA HẠN TRẢ SÁCH");
+        jLabel1.setText("GIA HẠN MƯỢN SÁCH");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(185, 185, 185)
+                .addGap(167, 167, 167)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -265,7 +265,7 @@ public class CapNhatPM extends javax.swing.JFrame {
             pm.setHanTra(new java.sql.Date(Date_HanTra.getDate().getTime()));
             PhieuMuonDAO pmDAO = new PhieuMuonDAO();
             pmDAO.updatePhieuMuon(pm);
-            JOptionPane.showMessageDialog(null,"Gia hạn trả sách thành công");
+            JOptionPane.showMessageDialog(null,"Gia hạn mượn sách thành công");
             qlpm.updateTable();
             this.dispose();
 
